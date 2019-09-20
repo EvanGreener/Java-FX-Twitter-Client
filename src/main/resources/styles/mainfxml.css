@@ -1,0 +1,11 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-font-size: 18pt;
+    -fx-font-family: "Tahoma";
+    -fx-background: #66FF66;
+
+}
+

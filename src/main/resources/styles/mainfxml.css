@@ -12,18 +12,11 @@
     -fx-font-size: 20px;
 }
 
-.sidebar-label:hover{
-    -fx-text-fill: rgb(59,64,67);
-}
 
-.sidebar-image{
-    -fx-effect: dropshadow(gaussian, rgb(59,64,67), 10, 0.5, 0, 0);
+.sidebar-hbox:hover{
+    -fx-background-radius: 20;
+    -fx-background-color: rgb(90,172,300);
 }
-
-.sidebar-image:pressed{
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0);
-}
-
 
 .header {
     -fx-font-size: 22px;
@@ -32,8 +25,29 @@
 .tweet-btn{
     -fx-text-fill: white;
     -fx-background-color: rgb(85,172,238);
+    -fx-background-radius: 15;
 }
 
 .tweet-btn:pressed {
     -fx-background-color: fuchsia;
+}
+
+#convos-list:even{
+    -fx-background-color: white;
+}
+
+#convos-list:odd{
+    -fx-background-color: white;
+}
+
+#follow-btn{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-text-fill:  rgb(85,172,238);
+    -fx-border-color: rgb(85,172,238);
+    -fx-border-radius: 10;
+}
+
+#follow-btn:hover{
+    -fx-background-color: rgb(237,237,237);
 }

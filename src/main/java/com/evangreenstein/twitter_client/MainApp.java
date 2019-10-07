@@ -34,6 +34,7 @@ public class MainApp extends Application {
     
     
     private Stage stage;
+    private MainFXMLController mainCtrl;
     
     @Override
     public void start(Stage primaryStage) {
@@ -43,7 +44,7 @@ public class MainApp extends Application {
         try {
             
             Scene mainScene = createMainScene();
-            Scene propertiesScene = createPropertiesScene();
+            Scene propertiesScene = createPropertiesScene(mainScene);
                     
             Properties prop = new Properties();
             Path twitter4j = get("/src/main/resources", "twitter4j.properties");
@@ -76,15 +77,16 @@ public class MainApp extends Application {
     private Scene createMainScene() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
         Parent root = loader.load();
-        MainFXMLController controller = loader.getController();
+        mainCtrl = loader.getController();
         Scene scene = new Scene(root);
         return scene;
     }
     
-    private Scene createPropertiesScene() throws IOException{
+    private Scene createPropertiesScene(Scene scene2) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
         Parent root = loader.load();
-        MainFXMLController controller = loader.getController();
+        TwitterKeysFormFXMLController controller = loader.getController();
+        controller.setSceneStageController(scene2, stage, mainCtrl);
         Scene scene = new Scene(root);
         return scene;
     }

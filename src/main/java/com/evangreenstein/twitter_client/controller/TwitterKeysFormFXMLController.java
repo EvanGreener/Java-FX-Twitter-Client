@@ -3,7 +3,12 @@
  */
 package com.evangreenstein.twitter_client.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import static java.nio.file.Paths.get;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,6 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import static java.nio.file.Files.newOutputStream;
+import java.nio.file.Paths;
+
 
 public class TwitterKeysFormFXMLController {
 
@@ -52,7 +60,7 @@ public class TwitterKeysFormFXMLController {
     }
     
     @FXML
-    void genTwitterProps(ActionEvent event) {
+    void genTwitterProps(ActionEvent event) throws IOException {
         if ("".equals(cKeyField.getText()) || "".equals(cSecretField.getText()) 
                 || "".equals(aTokenField.getText()) || "".equals(aTSecretzfield.getText())){
             
@@ -61,6 +69,19 @@ public class TwitterKeysFormFXMLController {
         else{
             
             Properties prop = new Properties();
+            
+            prop.setProperty("oauth.consumerKey", cKeyField.getText());
+            prop.setProperty("oauth.consumerSecret", cSecretField.getText());
+            prop.setProperty("oauth.accessToken", aTokenField.getText());
+            prop.setProperty("oauth.accessTokenSecret", aTSecretzfield.getText());
+            
+            String rootDir= Paths.get("").toAbsolutePath().toString();
+            
+            Path twitter4j = get(rootDir + "/src/main/resources", "twitter4j.properties");
+            
+            try (OutputStream propFileStream = newOutputStream(twitter4j)){
+                prop.store(propFileStream, "Twitter4j properties");
+            }
             
             stage.setScene(nextScene);
         }

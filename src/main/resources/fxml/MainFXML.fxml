@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.MainFXMLController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../styles/mainfxml.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.MainFXMLController">
    <children>
-      <VBox id="sidebar" fx:id="sideBarVbox" prefHeight="400.0" prefWidth="186.0" spacing="2.0">
+      <VBox id="sidebar" fx:id="sideBarVbox" prefHeight="500.0" prefWidth="236.0" spacing="2.0">
          <padding>
             <Insets bottom="10.0" left="10.0" top="10.0" />
          </padding>
@@ -90,43 +90,21 @@
       </VBox>
       <StackPane fx:id="windowsStackPane" prefHeight="500.0" prefWidth="615.0">
          <children>
-            <HBox fx:id="messagesWindow" prefHeight="100.0" prefWidth="595.0" style="-fx-background-color: white;">
+            <VBox fx:id="notificationsWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <VBox prefHeight="480.0" prefWidth="203.0">
-                     <children>
-                        <Label styleClass="header" text="Messages" />
-                        <Separator prefWidth="200.0" />
-                        <ListView id="convos-list" fx:id="convosList" prefHeight="480.0" prefWidth="200.0" style="-fx-border-color: white;" />
-                     </children>
-                  </VBox>
-                  <BorderPane prefHeight="480.0" prefWidth="416.0">
-                     <bottom>
-                        <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="396.0" spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 0;" BorderPane.alignment="CENTER">
-                           <children>
-                              <TextField fx:id="messageField" onKeyTyped="#isOverCharacterLimit" prefHeight="27.0" prefWidth="326.0" promptText="Start a new message" />
-                              <Button id="send-btn" fx:id="sendBtn" defaultButton="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#sendDirectMessage" prefHeight="25.0" prefWidth="38.0">
-                                 <graphic>
-                                    <ImageView fitHeight="41.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/send_ic.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding></HBox>
-                     </bottom>
-                     <center>
-                        <ListView fx:id="specificConvoList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                     </center>
-                     <top>
-                        <Label fx:id="twitterNameMessagesLbl" styleClass="header" text="Ken Fogel" BorderPane.alignment="CENTER" />
-                     </top>
-                  </BorderPane>
+                  <Label styleClass="header" text="Notifications" />
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <ListView fx:id="notificationsList" prefHeight="431.0" prefWidth="595.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </ListView>
                </children>
-            </HBox>
+            </VBox>
             <VBox fx:id="profileWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
                   <Label fx:id="profileHeader" styleClass="header" text="Evan Greenstein - User Profile" />
@@ -180,6 +158,43 @@
                   <ListView fx:id="userProfileTimeline" prefHeight="190.0" prefWidth="200.0" />
                </children>
             </VBox>
+            <HBox fx:id="messagesWindow" prefHeight="100.0" prefWidth="595.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox prefHeight="480.0" prefWidth="203.0">
+                     <children>
+                        <Label styleClass="header" text="Messages" />
+                        <Separator prefWidth="200.0" />
+                        <ListView id="convos-list" fx:id="convosList" prefHeight="480.0" prefWidth="200.0" style="-fx-border-color: white;" />
+                     </children>
+                  </VBox>
+                  <BorderPane prefHeight="480.0" prefWidth="416.0">
+                     <bottom>
+                        <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="396.0" spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 0;" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="messageField" onKeyTyped="#isOverCharacterLimit" prefHeight="27.0" prefWidth="326.0" promptText="Start a new message" />
+                              <Button id="send-btn" fx:id="sendBtn" defaultButton="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#sendDirectMessage" prefHeight="25.0" prefWidth="38.0">
+                                 <graphic>
+                                    <ImageView fitHeight="41.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/send_ic.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding></HBox>
+                     </bottom>
+                     <center>
+                        <ListView fx:id="specificConvoList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label fx:id="twitterNameMessagesLbl" styleClass="header" text="Ken Fogel" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+               </children>
+            </HBox>
             <VBox fx:id="exploreWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
                   <Label styleClass="header" text="Explore" />
@@ -235,21 +250,6 @@
                      </bottom>
                   </BorderPane>
                   <ListView fx:id="userTimeline" prefHeight="303.0" prefWidth="595.0">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </ListView>
-               </children>
-            </VBox>
-            <VBox fx:id="notificationsWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
-               <children>
-                  <Label styleClass="header" text="Notifications" />
-                  <Separator prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <ListView fx:id="notificationsList" prefHeight="431.0" prefWidth="595.0">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

@@ -14,13 +14,13 @@
   <description>A simple twitter client</description>
   <developers>
     <developer>
-      <id>Enter your school id</id>
-      <name>Enter your name</name>
-      <email>Enter your email address</email>
+      <id>1734025</id>
+      <name>Evan Greenstein</name>
+      <email>evanlg16@gmail.com</email>
     </developer>
   </developers>
   <organization>
-    <name>Enter school name</name>
+    <name>Dawson</name>
   </organization>
   <dependencies>
     <dependency>

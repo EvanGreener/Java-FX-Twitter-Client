@@ -32,32 +32,37 @@ import java.util.logging.Logger;
  */
 public class MainApp extends Application {
     
+    
+    private Stage stage;
+    
     @Override
     public void start(Stage primaryStage) {
+        
+        this.stage = primaryStage;
+        
         try {
+            
+            Scene mainScene = createMainScene();
+            Scene propertiesScene = createPropertiesScene();
+                    
             Properties prop = new Properties();
             Path twitter4j = get("/src/main/resources", "twitter4j.properties");
             if (Files.exists(twitter4j)){
+                
+                this.stage.setScene(mainScene);
+                
                 try (InputStream propFileStream = Files.newInputStream(twitter4j);){
                     prop.load(propFileStream);
                     
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
-                    Parent root = loader.load();
-                    MainFXMLController controller = loader.getController();
-                    Scene scene = new Scene(root);
-                    primaryStage.setTitle("Twitter Client");
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
                 }
             }
             else{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
-                Parent root = loader.load();
-                TwitterKeysFormFXMLController controller = loader.getController();
-                Scene scene = new Scene(root);
-                primaryStage.setScene(scene);
-                primaryStage.show();
+                this.stage.setScene(propertiesScene);
+                
             }
+            
+            stage.setTitle("Twitter Client");
+            stage.show();
             
             
         } catch (IOException | IllegalStateException ex) {
@@ -66,7 +71,24 @@ public class MainApp extends Application {
         }
 
     }
-
+    
+    
+    private Scene createMainScene() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
+        Parent root = loader.load();
+        MainFXMLController controller = loader.getController();
+        Scene scene = new Scene(root);
+        return scene;
+    }
+    
+    private Scene createPropertiesScene() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
+        Parent root = loader.load();
+        MainFXMLController controller = loader.getController();
+        Scene scene = new Scene(root);
+        return scene;
+    }
+    
     /**
      * @param args the command line arguments
      */

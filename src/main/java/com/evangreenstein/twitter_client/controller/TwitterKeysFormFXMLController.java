@@ -4,12 +4,15 @@
 package com.evangreenstein.twitter_client.controller;
 
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class TwitterKeysFormFXMLController {
 
@@ -37,12 +40,29 @@ public class TwitterKeysFormFXMLController {
     @FXML // fx:id="errorMsgLbl"
     private Label errorMsgLbl; // Value injected by FXMLLoader
     
+    private Scene nextScene;
+    private Stage stage;
+    private MainFXMLController mainController;
+    
+    
+    public void setSceneStageController(Scene scene, Stage stage, MainFXMLController mainController){
+        this.nextScene = scene;
+        this.stage = stage;
+        this.mainController = mainController;
+    }
+    
     @FXML
     void genTwitterProps(ActionEvent event) {
         if ("".equals(cKeyField.getText()) || "".equals(cSecretField.getText()) 
                 || "".equals(aTokenField.getText()) || "".equals(aTSecretzfield.getText())){
             
+            errorMsgLbl.setText("At least one of the fields has not been entered. Please enter all of them.");
+        }
+        else{
             
+            Properties prop = new Properties();
+            
+            stage.setScene(nextScene);
         }
     }
 

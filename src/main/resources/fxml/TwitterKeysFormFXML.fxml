@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" stylesheets="@../styles/twitterkeysformfxml.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.TwitterKeysFormFXMLController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="73.0" prefWidth="800.0" spacing="10.0">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/twitter_ic.png" />
+               </image>
+            </ImageView>
+            <Label text="The twitter4j.properties file does not exist. Please enter your 4 twitter dev keys in the corresponding fields below:" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="800.0" spacing="5.0">
+         <children>
+            <Label text="oauth.consumerKey" textFill="WHITE" />
+            <TextField fx:id="cKeyField" prefHeight="27.0" prefWidth="344.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="83.0" prefHeight="55.0" prefWidth="800.0" spacing="5.0">
+         <children>
+            <Label text="oauth.consumerSecret" textFill="WHITE" />
+            <TextField fx:id="cSecretField" prefHeight="27.0" prefWidth="344.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="154.0" prefHeight="55.0" prefWidth="800.0" spacing="5.0">
+         <children>
+            <Label text="oauth.accessToken" textFill="WHITE" />
+            <TextField fx:id="aTokenField" prefHeight="27.0" prefWidth="344.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="225.0" prefHeight="55.0" prefWidth="800.0" spacing="5.0">
+         <children>
+            <Label text="oauth.accessTokenSecret" textFill="WHITE" />
+            <TextField fx:id="aTSecretzfield" prefHeight="27.0" prefWidth="344.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <Label text="Click this button to generate twitter4j.properties file and connect to twitter!" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Button id="connect-btn" fx:id="generatePropBtn" defaultButton="true" mnemonicParsing="false" onAction="#genTwitterProps" text="Connect to Twitter!" />
+      <Label fx:id="errorMsgLbl" textFill="RED" wrapText="true" />
+   </children>
+</VBox>

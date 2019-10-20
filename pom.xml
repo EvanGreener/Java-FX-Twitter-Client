@@ -45,7 +45,7 @@
     by placing the tag name in ${...} ex. ${mainClass} -->
     <properties>
         <!-- class that has the main method -->
-        <mainClass>${project.groupId}.${project.artifactId}.MainApp</mainClass>
+        <mainClass>${project.groupId}.${project.artifactId}.presentation.MainApp</mainClass>
     </properties>
 
     <!-- All of the sample code shares the same dependencies and build         -->

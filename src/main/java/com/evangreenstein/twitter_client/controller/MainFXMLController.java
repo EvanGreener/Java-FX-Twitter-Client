@@ -6,7 +6,10 @@ package com.evangreenstein.twitter_client.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +22,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MainFXMLController {
+    
+    private final static Logger LOG = LoggerFactory.getLogger(MainFXMLController.class);
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -43,7 +52,7 @@ public class MainFXMLController {
     private Button profileBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="profileBtn1"
-    private Button profileBtn1; // Value injected by FXMLLoader
+    private Button notificationsBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="helpBtn"
     private Button helpBtn; // Value injected by FXMLLoader
@@ -156,6 +165,31 @@ public class MainFXMLController {
     @FXML
     void showWindow(ActionEvent event) {
         
+        EventTarget target = event.getTarget();
+        if (target instanceof Button){
+            Button sideBarBtn = (Button) target;
+            String id = sideBarBtn.getId();
+            LOG.debug(id);
+
+            //Checks the first part before Btn and which one that corresponds to.
+            //E.g. homeBtn matches "^home\w*"
+            if (Pattern.matches("^home\\w*", id)){
+                homeWindow.toFront();
+            }
+            else if (Pattern.matches("^explore\\w*", id)){
+                exploreWindow.toFront();
+            }
+            else if (Pattern.matches("^messages\\w*", id)){
+                messagesWindow.toFront();
+            }
+            else if (Pattern.matches("^profile\\w*", id)) {
+                profileWindow.toFront();
+            }
+            else if (Pattern.matches("^notifications\\w*", id)){
+                notificationsWindow.toFront();
+            }
+        }
+        
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -165,7 +199,7 @@ public class MainFXMLController {
         assert exploreBtn != null : "fx:id=\"exploreBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert messagesBtn != null : "fx:id=\"messagesBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert profileBtn != null : "fx:id=\"profileBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
-        assert profileBtn1 != null : "fx:id=\"profileBtn1\" was not injected: check your FXML file 'MainFXML.fxml'.";
+        assert notificationsBtn != null : "fx:id=\"notificationsBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert helpBtn != null : "fx:id=\"helpBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert windowsStackPane != null : "fx:id=\"windowsStackPane\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert messagesWindow != null : "fx:id=\"messagesWindow\" was not injected: check your FXML file 'MainFXML.fxml'.";
@@ -193,5 +227,6 @@ public class MainFXMLController {
         assert notificationsWindow != null : "fx:id=\"notificationsWindow\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert notificationsList != null : "fx:id=\"notificationsList\" was not injected: check your FXML file 'MainFXML.fxml'.";
 
+        
     }
 }

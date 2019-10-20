@@ -21,8 +21,12 @@ import javafx.stage.Stage;
 import static java.nio.file.Files.newOutputStream;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TwitterKeysFormFXMLController {
+    
+    private final static Logger LOG = LoggerFactory.getLogger(TwitterKeysFormFXMLController.class);
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -61,8 +65,8 @@ public class TwitterKeysFormFXMLController {
     
     @FXML
     void genTwitterProps(ActionEvent event) throws IOException {
-        if ("".equals(cKeyField.getText()) || "".equals(cSecretField.getText()) 
-                || "".equals(aTokenField.getText()) || "".equals(aTSecretzfield.getText())){
+        if (cKeyField.getText().isBlank() || cSecretField.getText().isBlank()
+                || aTokenField.getText().isBlank()|| aTSecretzfield.getText().isBlank() ){
             
             errorMsgLbl.setText("At least one of the fields has not been entered. Please enter all of them.");
         }
@@ -76,8 +80,9 @@ public class TwitterKeysFormFXMLController {
             prop.setProperty("oauth.accessTokenSecret", aTSecretzfield.getText());
             
             String rootDir= Paths.get("").toAbsolutePath().toString();
+            LOG.debug(rootDir);
             
-            Path twitter4j = get(rootDir + "/src/main/resources", "twitter4j.properties");
+            Path twitter4j = get(String.format("%s/src/main/resources", rootDir), "twitter4j.properties");
             
             try (OutputStream propFileStream = newOutputStream(twitter4j)){
                 prop.store(propFileStream, "Twitter4j properties");

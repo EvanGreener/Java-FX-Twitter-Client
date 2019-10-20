@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.evangreenstein.twitter_client;
+package com.evangreenstein.twitter_client.presentation;
 
 import com.evangreenstein.twitter_client.controller.*;
 import java.io.File;
@@ -21,10 +21,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import static java.nio.file.Paths.get;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -32,6 +34,7 @@ import java.util.logging.Logger;
  */
 public class MainApp extends Application {
     
+    private final static Logger LOG = LoggerFactory.getLogger(MainApp.class);
     
     private Stage stage;
     private MainFXMLController mainCtrl;
@@ -47,7 +50,8 @@ public class MainApp extends Application {
             Scene propertiesScene = createPropertiesScene(mainScene);
                     
             Properties prop = new Properties();
-            Path twitter4j = get("/src/main/resources", "twitter4j.properties");
+            String rootDir= Paths.get("").toAbsolutePath().toString();
+            Path twitter4j = get(String.format("%s/src/main/resources", rootDir), "twitter4j.properties");
             if (Files.exists(twitter4j)){
                 
                 this.stage.setScene(mainScene);
@@ -67,7 +71,7 @@ public class MainApp extends Application {
             
             
         } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            
             // See code samples for displaying an Alert box if an exception is thrown
         }
 
@@ -75,6 +79,7 @@ public class MainApp extends Application {
     
     
     private Scene createMainScene() throws IOException{
+        LOG.debug("creating main scene");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
         Parent root = loader.load();
         mainCtrl = loader.getController();
@@ -83,6 +88,7 @@ public class MainApp extends Application {
     }
     
     private Scene createPropertiesScene(Scene scene2) throws IOException{
+        LOG.debug("creating properties scene and passing required variables into controller");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
         Parent root = loader.load();
         TwitterKeysFormFXMLController controller = loader.getController();

@@ -3,6 +3,8 @@
  */
 package com.evangreenstein.twitter_client.controller;
 
+import com.evangreenstein.twitter_client.business.PropertiesManager;
+import com.evangreenstein.twitter_client.data.T4jPropertiesFXBean;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
@@ -18,8 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import static java.nio.file.Files.newOutputStream;
-import java.nio.file.Paths;
+import javafx.beans.binding.Bindings;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +46,7 @@ public class TwitterKeysFormFXMLController {
     private TextField aTokenField; // Value injected by FXMLLoader
 
     @FXML // fx:id="aTSecretzfield"
-    private TextField aTSecretzfield; // Value injected by FXMLLoader
+    private TextField aTSecretField; // Value injected by FXMLLoader
 
     @FXML // fx:id="generatePropBtn"
     private Button generatePropBtn; // Value injected by FXMLLoader
@@ -55,7 +57,13 @@ public class TwitterKeysFormFXMLController {
     private Scene nextScene;
     private Stage stage;
     private MainFXMLController mainController;
+    private PropertiesManager pm = new PropertiesManager();
+    private T4jPropertiesFXBean t4jPropsBean;
     
+    public TwitterKeysFormFXMLController(){
+        super();
+        t4jPropsBean = new T4jPropertiesFXBean();
+    }
     
     public void setSceneStageController(Scene scene, Stage stage, MainFXMLController mainController){
         this.nextScene = scene;
@@ -66,28 +74,12 @@ public class TwitterKeysFormFXMLController {
     @FXML
     void genTwitterProps(ActionEvent event) throws IOException {
         if (cKeyField.getText().isBlank() || cSecretField.getText().isBlank()
-                || aTokenField.getText().isBlank()|| aTSecretzfield.getText().isBlank() ){
+                || aTokenField.getText().isBlank()|| aTSecretField.getText().isBlank() ){
             
             errorMsgLbl.setText("At least one of the fields has not been entered. Please enter all of them.");
         }
         else{
-            
-            Properties prop = new Properties();
-            
-            prop.setProperty("oauth.consumerKey", cKeyField.getText());
-            prop.setProperty("oauth.consumerSecret", cSecretField.getText());
-            prop.setProperty("oauth.accessToken", aTokenField.getText());
-            prop.setProperty("oauth.accessTokenSecret", aTSecretzfield.getText());
-            
-            String rootDir= Paths.get("").toAbsolutePath().toString();
-            LOG.debug(rootDir);
-            
-            Path twitter4j = get(String.format("%s/src/main/resources", rootDir), "twitter4j.properties");
-            
-            try (OutputStream propFileStream = newOutputStream(twitter4j)){
-                prop.store(propFileStream, "Twitter4j properties");
-            }
-            
+            pm.writeProperties(t4jPropsBean);
             stage.setScene(nextScene);
         }
     }
@@ -97,9 +89,22 @@ public class TwitterKeysFormFXMLController {
         assert cKeyField != null : "fx:id=\"cKeyField\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
         assert cSecretField != null : "fx:id=\"cSecretField\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
         assert aTokenField != null : "fx:id=\"aTokenField\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
-        assert aTSecretzfield != null : "fx:id=\"aTSecretzfield\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
+        assert aTSecretField != null : "fx:id=\"aTSecretzfield\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
         assert generatePropBtn != null : "fx:id=\"generatePropBtn\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
         assert errorMsgLbl != null : "fx:id=\"errorMsgLbl\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
+        
+        t4jPropsBean = new T4jPropertiesFXBean();
 
+        //problem
+        Bindings.bindBidirectional(cKeyField.textProperty(), t4jPropsBean.cKeyProp());
+        
+        
+        Bindings.bindBidirectional(cSecretField.textProperty(), t4jPropsBean.cSecretProp());
+        Bindings.bindBidirectional(aTokenField.textProperty(), t4jPropsBean.aTokenProp());
+        Bindings.bindBidirectional(aTSecretField.textProperty(), t4jPropsBean.aTSecretProp());
+
+        
+        
+        
     }
 }

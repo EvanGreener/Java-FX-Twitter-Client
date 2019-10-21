@@ -1,10 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Containts only one class whose responsibilty is presentation
  */
 package com.evangreenstein.twitter_client.presentation;
 
+import com.evangreenstein.twitter_client.business.PropertiesManager;
 import com.evangreenstein.twitter_client.controller.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +37,7 @@ public class MainApp extends Application {
     
     private Stage stage;
     private MainFXMLController mainCtrl;
+    private PropertiesManager pm = new PropertiesManager();
     
     @Override
     public void start(Stage primaryStage) {
@@ -48,20 +48,13 @@ public class MainApp extends Application {
             
             Scene mainScene = createMainScene();
             Scene propertiesScene = createPropertiesScene(mainScene);
-                    
-            Properties prop = new Properties();
-            String rootDir= Paths.get("").toAbsolutePath().toString();
-            Path twitter4j = get(String.format("%s/src/main/resources", rootDir), "twitter4j.properties");
-            if (Files.exists(twitter4j)){
-                
+            
+            if (pm.loadProperties()){
+                LOG.info("Entering main scene");
                 this.stage.setScene(mainScene);
-                
-                try (InputStream propFileStream = Files.newInputStream(twitter4j);){
-                    prop.load(propFileStream);
-                    
-                }
             }
             else{
+                LOG.info("Entering properties scene");
                 this.stage.setScene(propertiesScene);
                 
             }
@@ -79,7 +72,7 @@ public class MainApp extends Application {
     
     
     private Scene createMainScene() throws IOException{
-        LOG.debug("creating main scene");
+        LOG.info("creating main scene");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
         Parent root = loader.load();
         mainCtrl = loader.getController();
@@ -88,12 +81,14 @@ public class MainApp extends Application {
     }
     
     private Scene createPropertiesScene(Scene scene2) throws IOException{
-        LOG.debug("creating properties scene and passing required variables into controller");
+        LOG.info("creating properties scene and passing required variables into controller");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
         Parent root = loader.load();
+        LOG.info("getting controller ");
         TwitterKeysFormFXMLController controller = loader.getController();
-        controller.setSceneStageController(scene2, stage, mainCtrl);
+        controller.setSceneStageController(scene2, stage, mainCtrl );
         Scene scene = new Scene(root);
+        LOG.info("end");
         return scene;
     }
     

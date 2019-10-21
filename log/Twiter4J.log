@@ -60,3 +60,83 @@
 [DEBUG] 2019-10-20 16:51:00.053 [JavaFX Application Thread] MainFXMLController - exploreBtn
 [DEBUG] 2019-10-20 16:51:00.599 [JavaFX Application Thread] MainFXMLController - homebtn
 [DEBUG] 2019-10-20 16:51:01.537 [JavaFX Application Thread] MainFXMLController - profileBtn
+[DEBUG] 2019-10-20 20:10:43.171 [JavaFX Application Thread] MainApp - creating main scene
+[DEBUG] 2019-10-20 20:10:44.770 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[DEBUG] 2019-10-20 20:21:50.145 [JavaFX Application Thread] MainApp - creating main scene
+[DEBUG] 2019-10-20 20:21:51.784 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[DEBUG] 2019-10-20 20:31:00.796 [JavaFX Application Thread] MainApp - creating main scene
+[DEBUG] 2019-10-20 20:31:02.417 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[DEBUG] 2019-10-20 22:00:25.424 [JavaFX Application Thread] MainApp - creating main scene
+[DEBUG] 2019-10-20 22:00:27.204 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:04:06.682 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:04:08.243 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:14:26.771 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:14:28.032 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:16:15.410 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:16:17.033 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:18:05.914 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:18:07.413 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:25:22.525 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:25:23.895 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:31:27.697 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:31:29.354 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 22:43:22.844 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 22:43:25.390 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:05:45.398 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:05:46.994 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:07:11.060 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:07:12.717 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:07:12.764 [JavaFX Application Thread] MainApp - getting controller 
+[INFO ] 2019-10-20 23:07:12.774 [JavaFX Application Thread] MainApp - end
+[INFO ] 2019-10-20 23:07:12.775 [JavaFX Application Thread] PropertiesManager - Loading Properties
+[INFO ] 2019-10-20 23:07:12.775 [JavaFX Application Thread] MainApp - Entering properties scene
+[INFO ] 2019-10-20 23:20:30.644 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:20:32.302 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:29:58.709 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:30:00.048 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[DEBUG] 2019-10-20 23:30:00.091 [JavaFX Application Thread] TwitterKeysFormFXMLController - cKey: StringProperty [value: ], cSecret: StringProperty [value: ], aToken: StringProperty [value: ], aTSecret StringProperty [value: ]
+[INFO ] 2019-10-20 23:33:15.123 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:33:16.622 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:34:59.908 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:35:01.404 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:43:26.724 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:43:32.344 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:47:15.198 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:47:16.797 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:52:27.002 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:52:28.466 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:56:31.797 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:56:33.215 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:57:25.491 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:57:26.735 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:57:26.812 [JavaFX Application Thread] MainApp - getting controller 
+[INFO ] 2019-10-20 23:57:26.820 [JavaFX Application Thread] MainApp - end
+[INFO ] 2019-10-20 23:57:26.820 [JavaFX Application Thread] PropertiesManager - Loading Properties
+[INFO ] 2019-10-20 23:57:26.821 [JavaFX Application Thread] MainApp - Entering properties scene
+[INFO ] 2019-10-20 23:58:03.391 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-20 23:58:04.714 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-20 23:58:04.823 [JavaFX Application Thread] MainApp - getting controller 
+[INFO ] 2019-10-20 23:58:04.833 [JavaFX Application Thread] MainApp - end
+[INFO ] 2019-10-20 23:58:04.834 [JavaFX Application Thread] PropertiesManager - Loading Properties
+[INFO ] 2019-10-20 23:58:04.834 [JavaFX Application Thread] MainApp - Entering properties scene
+[INFO ] 2019-10-21 00:01:51.164 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-21 00:01:52.396 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-21 00:01:52.498 [JavaFX Application Thread] MainApp - getting controller 
+[INFO ] 2019-10-21 00:01:52.507 [JavaFX Application Thread] MainApp - end
+[INFO ] 2019-10-21 00:01:52.508 [JavaFX Application Thread] PropertiesManager - Loading Properties
+[INFO ] 2019-10-21 00:01:52.508 [JavaFX Application Thread] MainApp - Entering properties scene
+[INFO ] 2019-10-21 00:04:33.802 [JavaFX Application Thread] MainApp - creating main scene
+[INFO ] 2019-10-21 00:04:35.749 [JavaFX Application Thread] MainApp - creating properties scene and passing required variables into controller
+[INFO ] 2019-10-21 00:04:35.850 [JavaFX Application Thread] MainApp - getting controller 
+[INFO ] 2019-10-21 00:04:35.866 [JavaFX Application Thread] MainApp - end
+[INFO ] 2019-10-21 00:04:35.866 [JavaFX Application Thread] PropertiesManager - Loading Properties
+[INFO ] 2019-10-21 00:04:35.866 [JavaFX Application Thread] MainApp - Entering properties scene
+[DEBUG] 2019-10-21 00:05:18.949 [JavaFX Application Thread] PropertiesManager - /Users/evangreenstein/NetBeansProjects/twitter-client
+[DEBUG] 2019-10-21 00:05:24.607 [JavaFX Application Thread] MainFXMLController - exploreBtn
+[DEBUG] 2019-10-21 00:05:25.212 [JavaFX Application Thread] MainFXMLController - messagesBtn
+[DEBUG] 2019-10-21 00:05:25.630 [JavaFX Application Thread] MainFXMLController - profileBtn
+[DEBUG] 2019-10-21 00:05:26.054 [JavaFX Application Thread] MainFXMLController - notificationsBtn
+[DEBUG] 2019-10-21 00:05:26.762 [JavaFX Application Thread] MainFXMLController - profileBtn
+[DEBUG] 2019-10-21 00:05:27.179 [JavaFX Application Thread] MainFXMLController - messagesBtn
+[DEBUG] 2019-10-21 00:05:27.586 [JavaFX Application Thread] MainFXMLController - exploreBtn
+[DEBUG] 2019-10-21 00:05:27.956 [JavaFX Application Thread] MainFXMLController - homebtn

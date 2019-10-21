@@ -49,7 +49,7 @@
       <HBox alignment="CENTER" layoutX="10.0" layoutY="225.0" prefHeight="55.0" prefWidth="800.0" spacing="5.0">
          <children>
             <Label text="oauth.accessTokenSecret" textFill="WHITE" />
-            <TextField fx:id="aTSecretzfield" prefHeight="27.0" prefWidth="344.0" />
+            <TextField fx:id="aTSecretField" prefHeight="27.0" prefWidth="344.0" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />

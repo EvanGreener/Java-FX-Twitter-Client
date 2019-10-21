@@ -1,12 +1,10 @@
 /*
- * Containts only one class whose responsibilty is presentation
+ * Contains the JavaFX Main class
  */
 package com.evangreenstein.twitter_client.presentation;
 
 import com.evangreenstein.twitter_client.business.PropertiesManager;
 import com.evangreenstein.twitter_client.controller.*;
-import java.io.File;
-import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,12 +15,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.nio.file.Paths.get;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +37,10 @@ public class MainApp extends Application {
     private MainFXMLController mainCtrl;
     private PropertiesManager pm = new PropertiesManager();
     
+    /**
+     * Where the application starts
+     * @param primaryStage 
+     */
     @Override
     public void start(Stage primaryStage) {
         
@@ -70,10 +72,18 @@ public class MainApp extends Application {
 
     }
     
-    
+    /**
+     * Creates and returns the main twitter scene. 
+     * 
+     * Also 
+     * 
+     * @return The main scene
+     * @throws IOException 
+     */
     private Scene createMainScene() throws IOException{
         LOG.info("creating main scene");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml")); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainFXML.fxml"), 
+                ResourceBundle.getBundle("MessagesBundle")); 
         Parent root = loader.load();
         mainCtrl = loader.getController();
         Scene scene = new Scene(root);
@@ -82,7 +92,8 @@ public class MainApp extends Application {
     
     private Scene createPropertiesScene(Scene scene2) throws IOException{
         LOG.info("creating properties scene and passing required variables into controller");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml")); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml"),
+            ResourceBundle.getBundle("MessagesBundle")); 
         Parent root = loader.load();
         LOG.info("getting controller ");
         TwitterKeysFormFXMLController controller = loader.getController();

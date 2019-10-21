@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../styles/mainfxml.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.MainFXMLController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="868.0" style="-fx-background-color: white;" stylesheets="@../styles/mainfxml.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.MainFXMLController">
    <children>
-      <VBox id="sidebar" fx:id="sideBarVbox" prefHeight="500.0" prefWidth="236.0" spacing="2.0">
+      <VBox id="sidebar" fx:id="sideBarVbox" prefHeight="500.0" prefWidth="258.0" spacing="2.0">
          <padding>
             <Insets bottom="10.0" left="10.0" top="10.0" />
          </padding>
@@ -32,7 +32,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="homebtn" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="Home">
+            <Button fx:id="homebtn" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="%Home">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exploreBtn" layoutX="20.0" layoutY="105.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="Explore">
+            <Button fx:id="exploreBtn" layoutX="20.0" layoutY="105.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="%Explore">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -50,7 +50,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="messagesBtn" layoutX="20.0" layoutY="178.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="Messages">
+            <Button fx:id="messagesBtn" layoutX="20.0" layoutY="178.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="%Messages">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -59,7 +59,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="profileBtn" layoutX="20.0" layoutY="251.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="Profile">
+            <Button fx:id="profileBtn" layoutX="20.0" layoutY="251.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="%Profile">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -68,7 +68,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="notificationsBtn" layoutX="20.0" layoutY="312.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="Notifications">
+            <Button fx:id="notificationsBtn" layoutX="20.0" layoutY="312.0" mnemonicParsing="false" onAction="#showWindow" styleClass="sidebar-btn" text="%Notifications">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -77,7 +77,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="helpBtn" layoutX="20.0" layoutY="324.0" mnemonicParsing="false" onAction="#showHelpScreen" styleClass="sidebar-btn" text="Help">
+            <Button fx:id="helpBtn" layoutX="20.0" layoutY="324.0" mnemonicParsing="false" onAction="#showHelpScreen" styleClass="sidebar-btn" text="%Help">
                <graphic>
                   <ImageView disable="true" fitHeight="49.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-image">
                      <image>
@@ -92,7 +92,7 @@
          <children>
             <VBox fx:id="notificationsWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <Label styleClass="header" text="Notifications" />
+                  <Label styleClass="header" text="%Notifications" />
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -107,7 +107,7 @@
             </VBox>
             <VBox fx:id="profileWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="profileHeader" styleClass="header" text="Evan Greenstein - User Profile" />
+                  <Label fx:id="profileHeader" styleClass="header" text="Evan Greenstein - Profile" />
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -122,7 +122,7 @@
                         </ImageView>
                      </left>
                      <right>
-                        <Button id="follow-btn" fx:id="followUnfollowBtn" mnemonicParsing="false" onAction="#followUnfollowUser" prefHeight="35.0" prefWidth="97.0" text="Follow" BorderPane.alignment="CENTER" />
+                        <Button id="follow-btn" fx:id="followUnfollowBtn" mnemonicParsing="false" onAction="#followUnfollowUser" prefHeight="35.0" prefWidth="97.0" text="%Follow" BorderPane.alignment="CENTER" />
                      </right>
                      <padding>
                         <Insets right="40.0" />
@@ -150,7 +150,7 @@
                      </bottom>
                   </BorderPane>
                   <Separator layoutX="10.0" layoutY="43.0" prefWidth="200.0" />
-                  <Label layoutX="10.0" layoutY="10.0" styleClass="header" text="Timeline">
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="header" text="%Timeline">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -162,7 +162,7 @@
                <children>
                   <VBox prefHeight="480.0" prefWidth="203.0">
                      <children>
-                        <Label styleClass="header" text="Messages" />
+                        <Label styleClass="header" text="%Messages" />
                         <Separator prefWidth="200.0" />
                         <ListView id="convos-list" fx:id="convosList" prefHeight="480.0" prefWidth="200.0" style="-fx-border-color: white;" />
                      </children>
@@ -171,7 +171,7 @@
                      <bottom>
                         <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="396.0" spacing="10.0" style="-fx-border-color: gray; -fx-border-width: 0;" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="messageField" onKeyTyped="#isOverCharacterLimit" prefHeight="27.0" prefWidth="326.0" promptText="Start a new message" />
+                              <TextField fx:id="messageField" onKeyTyped="#isOverCharacterLimit" prefHeight="27.0" prefWidth="326.0" promptText="%StartNewMsg" />
                               <Button id="send-btn" fx:id="sendBtn" defaultButton="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#sendDirectMessage" prefHeight="25.0" prefWidth="38.0">
                                  <graphic>
                                     <ImageView fitHeight="41.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
@@ -197,13 +197,13 @@
             </HBox>
             <VBox fx:id="exploreWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <Label styleClass="header" text="Explore" />
+                  <Label styleClass="header" text="%Explore" />
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </Separator>
-                  <TextField fx:id="searchBar" onAction="#search" promptText="Search twitter..." />
+                  <TextField fx:id="searchBar" onAction="#search" promptText="%SearchTwitter" />
                   <Separator layoutX="10.0" layoutY="47.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -214,7 +214,7 @@
             </VBox>
             <VBox fx:id="homeWindow" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <Label styleClass="header" text="Home" />
+                  <Label styleClass="header" text="%Home" />
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -229,7 +229,7 @@
                         </ImageView>
                      </left>
                      <center>
-                        <TextArea fx:id="statusMsg" onKeyTyped="#isOverCharacterLimit" prefHeight="68.0" prefWidth="530.0" promptText="What's happening?" BorderPane.alignment="CENTER">
+                        <TextArea fx:id="statusMsg" onKeyTyped="#isOverCharacterLimit" prefHeight="68.0" prefWidth="530.0" promptText="%WhatsHappening" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="17.0" />
                            </font>

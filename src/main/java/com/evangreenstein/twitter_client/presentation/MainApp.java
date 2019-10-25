@@ -65,7 +65,7 @@ public class MainApp extends Application {
             
         } catch (IOException | IllegalStateException ex) {
             
-            // See code samples for displaying an Alert box if an exception is thrown
+            
         }
 
     }

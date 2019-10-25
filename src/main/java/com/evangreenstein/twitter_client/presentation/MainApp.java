@@ -6,20 +6,11 @@ package com.evangreenstein.twitter_client.presentation;
 import com.evangreenstein.twitter_client.business.PropertiesManager;
 import com.evangreenstein.twitter_client.controller.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.Paths.get;
-import java.util.Locale;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
@@ -27,7 +18,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Evan Greenstein
+ * Sets up all the scenes. Directs the user to the properties form if t
+ * 
  */
 public class MainApp extends Application {
     
@@ -35,10 +27,12 @@ public class MainApp extends Application {
     
     private Stage stage;
     private MainFXMLController mainCtrl;
-    private PropertiesManager pm = new PropertiesManager();
+    private final PropertiesManager pm = new PropertiesManager();
     
     /**
-     * Where the application starts
+     * Directs the user to the properties form if the twitter4j properties
+     * file isn't complete, otherwise it direct the user straight to the main
+     * Twitter scene
      * @param primaryStage 
      */
     @Override
@@ -73,9 +67,8 @@ public class MainApp extends Application {
     }
     
     /**
-     * Creates and returns the main twitter scene. 
-     * 
-     * Also 
+     * Creates and returns the main twitter scene. Also gets a reference to the
+     * main controller which is needed by the properties form controller.
      * 
      * @return The main scene
      * @throws IOException 
@@ -90,14 +83,23 @@ public class MainApp extends Application {
         return scene;
     }
     
-    private Scene createPropertiesScene(Scene scene2) throws IOException{
+    /**
+     * Creates and returns the properties form scene. The properties scene controller 
+     * has a method that passes in the main twitter scene, the stage and the twitter 
+     * controller.
+     * 
+     * @param mainScene
+     * @return The properties form scene
+     * @throws IOException 
+     */
+    private Scene createPropertiesScene(Scene mainScene) throws IOException{
         LOG.info("creating properties scene and passing required variables into controller");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TwitterKeysFormFXML.fxml"),
             ResourceBundle.getBundle("MessagesBundle")); 
         Parent root = loader.load();
         LOG.info("getting controller ");
         TwitterKeysFormFXMLController controller = loader.getController();
-        controller.setSceneStageController(scene2, stage, mainCtrl );
+        controller.setSceneStageController(mainScene, stage, mainCtrl );
         Scene scene = new Scene(root);
         LOG.info("end");
         return scene;

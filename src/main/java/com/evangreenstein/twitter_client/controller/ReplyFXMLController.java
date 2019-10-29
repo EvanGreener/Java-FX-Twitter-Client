@@ -40,7 +40,6 @@ public class ReplyFXMLController {
     private final TwitterEngine engine = new TwitterEngine();
     private Stage stage;
     private long tweetId;
-    private String handle;
     
     public void setStage(Stage stage){
         this.stage = stage;
@@ -48,7 +47,6 @@ public class ReplyFXMLController {
     
     public void setTweetInfo(long tweetId, String handle){
         this.tweetId = tweetId;
-        this.handle = handle;
         
         replyingToLbl.setText(String.format("Replying to: @%s", handle ));
     }

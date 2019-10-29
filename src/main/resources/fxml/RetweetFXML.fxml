@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.RetweetFXMLController">
+   <children>
+      <TextArea fx:id="message" prefHeight="200.0" prefWidth="200.0" promptText="Type retweet message here...">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="retweetBtn" mnemonicParsing="false" onAction="#retweetMessage" text="Retweet">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</VBox>

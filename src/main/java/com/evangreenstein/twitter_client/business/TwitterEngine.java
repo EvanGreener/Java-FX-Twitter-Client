@@ -23,7 +23,7 @@ public class TwitterEngine {
     
     private final static Logger LOG = LoggerFactory.getLogger(TwitterEngine.class);
     
-    public Twitter getTwitterinstance() {
+    public Twitter getTwitterInstance() {
         Twitter twitter = TwitterFactory.getSingleton();
         return twitter;
 
@@ -37,7 +37,7 @@ public class TwitterEngine {
      */
     public String createTweet(String tweet) throws TwitterException {
         LOG.debug("createTweet: " + tweet);
-        Twitter twitter = getTwitterinstance();
+        Twitter twitter = getTwitterInstance();
         Status status = twitter.updateStatus(tweet);
         return status.getText();
     }
@@ -54,7 +54,7 @@ public class TwitterEngine {
      */
     public List<Status> getTimeLine(int page) throws TwitterException {
         LOG.debug("getTimeLine");
-        Twitter twitter = getTwitterinstance();
+        Twitter twitter = getTwitterInstance();
         Paging paging = new Paging();
         paging.setCount(20);
         paging.setPage(page);
@@ -72,7 +72,7 @@ public class TwitterEngine {
      */
     public String sendDirectMessage(String recipientName, String msg) throws TwitterException {
         LOG.debug("sendDirectMessage");
-        Twitter twitter = getTwitterinstance();
+        Twitter twitter = getTwitterInstance();
         DirectMessage message = twitter.sendDirectMessage(recipientName, msg);
         return message.getText();
     }
@@ -86,18 +86,66 @@ public class TwitterEngine {
      */
     public List<Status> searchtweets(String searchTerm) throws TwitterException {
         LOG.debug("searchtweets");
-        Twitter twitter = getTwitterinstance();
+        Twitter twitter = getTwitterInstance();
         Query query = new Query(searchTerm);
         QueryResult result = twitter.search(query);
         List<Status> statuses = result.getTweets();
         return statuses;
     }
     
+    /**
+     * Updates users status in reply to someone else's status
+     * 
+     * @param reply
+     * @param tweetId
+     * @throws TwitterException 
+     */
     public void replyToTweet(String reply, long tweetId) throws TwitterException{
         LOG.debug("replyToTweet");
-        Twitter twitter = getTwitterinstance();
+        Twitter twitter = getTwitterInstance();
         StatusUpdate update = (new StatusUpdate(reply)).inReplyToStatusId(tweetId);
         twitter.updateStatus(update);
         
+    }
+    
+    /**
+     * Retweets a tweet
+     * 
+     * @param tweetId
+     * @throws TwitterException 
+     */
+    public void retweet(long tweetId) throws TwitterException{
+        LOG.debug("Retweet without message");
+        Twitter twitter = getTwitterInstance();
+        twitter.retweetStatus(tweetId);
+    }
+    
+    /**
+     * Retweets a tweet with a message. A retweet with a message is simply a
+     * normal tweet with the URL at the end.
+     * 
+     * @param tweetId
+     * @param username
+     * @param msg 
+     */
+    public void retweet(long tweetId, String username, String msg) throws TwitterException{
+        LOG.debug("Retweet with message");
+        Twitter twitter = getTwitterInstance();
+        StatusUpdate update = (new StatusUpdate(
+                String.format("%s https://twitter.com/%s/status/%s", msg, username, tweetId)
+        ));
+        twitter.updateStatus(update);
+    }
+    
+    public void likeTweet(long tweetId) throws TwitterException{
+        LOG.debug("like tweet");
+        Twitter twitter = getTwitterInstance();
+        twitter.createFavorite(tweetId);
+    }
+    
+    public void unLikeTweet(long tweetId) throws TwitterException{
+        LOG.debug("like tweet");
+        Twitter twitter = getTwitterInstance();
+        twitter.destroyFavorite(tweetId);
     }
 }

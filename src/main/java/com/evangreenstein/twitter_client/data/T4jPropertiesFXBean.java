@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Contains classes whose responsibility is storing data
  */
 package com.evangreenstein.twitter_client.data;
 
@@ -9,8 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- *
- * @author evangreenstein
+ * The twitter4J properties FX bean. Used for storing input from the properties form
  */
 public class T4jPropertiesFXBean {
     
@@ -18,6 +15,7 @@ public class T4jPropertiesFXBean {
     private final StringProperty cSecret;
     private final StringProperty aToken;
     private final StringProperty aTSecret;
+    
     
     public T4jPropertiesFXBean(final String cKey, final String cSecret, final String aToken, final String aTSecret ){
         this.cKey = new SimpleStringProperty(cKey);

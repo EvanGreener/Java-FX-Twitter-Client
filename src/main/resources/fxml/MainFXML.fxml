@@ -249,11 +249,20 @@
                         </ButtonBar>
                      </bottom>
                   </BorderPane>
-                  <ListView fx:id="userTimeline" prefHeight="303.0" prefWidth="595.0">
+                  <ListView fx:id="userTimeline" prefHeight="242.0" prefWidth="593.0">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </ListView>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="593.0">
+                     <children>
+                        <Button fx:id="nextTweetsBtn" alignment="CENTER" mnemonicParsing="false" onAction="#showNextTweets" text="%NextPage">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.evangreenstein.twitter_client.business;
 
 import com.evangreenstein.twitter_client.data.T4jPropertiesFXBean;
@@ -18,15 +14,23 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
- *
- * @author evangreenstein
+ * The properties manager is responsible for loading the twitter4j properties file if there is one
+ * and for generating   
+ * 
  */
 public class PropertiesManager {
     
     private final static Logger LOG = LoggerFactory.getLogger(PropertiesManager.class);
     
-    
+    /**
+     * If the properties file exists in the src/main/resources/ directory, it will 
+     * load the file otherwise false will be returned.
+     * 
+     * @return true if the properties file exists, false otherwise
+     * @throws IOException 
+     */
     public boolean loadProperties() throws IOException{
         LOG.info("Loading Properties");
         Properties prop= new Properties();
@@ -45,6 +49,12 @@ public class PropertiesManager {
         return exists;
     }
     
+    /**
+     * Creates the properties file and writes the keys and their values into the file
+     * 
+     * @param t4j
+     * @throws IOException 
+     */
     public void writeProperties(final T4jPropertiesFXBean t4j) throws IOException {
         
         Properties prop= new Properties();            

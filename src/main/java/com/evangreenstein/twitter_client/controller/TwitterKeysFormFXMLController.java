@@ -1,5 +1,5 @@
 /**
- * Sample Skeleton for 'TwitterKeysFormFXML.fxml' Controller Class
+ * Contains Java FX controller classes
  */
 package com.evangreenstein.twitter_client.controller;
 
@@ -61,16 +61,31 @@ public class TwitterKeysFormFXMLController {
     private T4jPropertiesFXBean t4jPropsBean;
     
     public TwitterKeysFormFXMLController(){
-        super();
         t4jPropsBean = new T4jPropertiesFXBean();
     }
     
+    /**
+     * By passing a reference to the stage object, the next scene and it's controller, 
+     * this controller can switch to the next scene once the user properly submits the form
+     * 
+     * @param scene
+     * @param stage
+     * @param mainController 
+     */
     public void setSceneStageController(Scene scene, Stage stage, MainFXMLController mainController){
         this.nextScene = scene;
         this.stage = stage;
         this.mainController = mainController;
     }
     
+    /**
+     * This event is triggered when the user presses the "Connect to twitter button".
+     * It will only generate the properties file once the user has entered all the 4
+     * keys. Then it switches to the next 
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void genTwitterProps(ActionEvent event) throws IOException {
         if (cKeyField.getText().isBlank() || cSecretField.getText().isBlank()
@@ -84,6 +99,9 @@ public class TwitterKeysFormFXMLController {
         }
     }
 
+    /**
+     * Initializes form and binds the form's fields to the keys of the properties FX bean 
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert cKeyField != null : "fx:id=\"cKeyField\" was not injected: check your FXML file 'TwitterKeysFormFXML.fxml'.";
@@ -95,10 +113,7 @@ public class TwitterKeysFormFXMLController {
         
         t4jPropsBean = new T4jPropertiesFXBean();
 
-        //problem
         Bindings.bindBidirectional(cKeyField.textProperty(), t4jPropsBean.cKeyProp());
-        
-        
         Bindings.bindBidirectional(cSecretField.textProperty(), t4jPropsBean.cSecretProp());
         Bindings.bindBidirectional(aTokenField.textProperty(), t4jPropsBean.aTokenProp());
         Bindings.bindBidirectional(aTSecretField.textProperty(), t4jPropsBean.aTSecretProp());

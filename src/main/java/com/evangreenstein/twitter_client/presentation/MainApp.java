@@ -17,8 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
- * Sets up all the scenes. Directs the user to the properties form if t
+ * Starts the Twitter client application. 
  * 
  */
 public class MainApp extends Application {
@@ -33,6 +32,7 @@ public class MainApp extends Application {
      * Directs the user to the properties form if the twitter4j properties
      * file isn't complete, otherwise it direct the user straight to the main
      * Twitter scene
+     * 
      * @param primaryStage 
      */
     @Override
@@ -57,6 +57,7 @@ public class MainApp extends Application {
             
             stage.setTitle("Twitter Client");
             stage.show();
+            
             
             
         } catch (IOException | IllegalStateException ex) {

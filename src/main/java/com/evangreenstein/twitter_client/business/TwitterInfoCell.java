@@ -1,8 +1,12 @@
 package com.evangreenstein.twitter_client.business;
 
+import java.util.logging.Level;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import twitter4j.TwitterException;
 
 /**
  * ListCell for TwitterInfo This class represents the contents of an HBox that
@@ -21,6 +26,8 @@ import org.slf4j.LoggerFactory;
 public class TwitterInfoCell extends ListCell<TwitterInfo> {
 
     private final static Logger LOG = LoggerFactory.getLogger(TwitterInfoCell.class);
+    
+    private final TwitterEngine engine = new TwitterEngine();
 
     /**
      * This method is called when ever cells need to be updated
@@ -68,28 +75,60 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
         commentBtn.setGraphic(new ImageView(commentImage));
         commentBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new ReplyHandler(info.getTweetID(), info.getHandle()));
         
-        Button retweetBtn = new Button();
+        MenuButton retweetBtn = new MenuButton();
         Image retweetImage = new Image("images/ic_retweet.png", 20, 20, true, false);
         retweetBtn.setGraphic(new ImageView(retweetImage));
+        MenuItem rt = new MenuItem("Retweet");
+        MenuItem rtWMsg = new MenuItem("Retweet with message");
+        rt.setOnAction( (event) -> {
+            try {
+                engine.retweet(info.getTweetID());
+            } catch (TwitterException ex) {
+                LOG.error("Can't get tweet id");
+            }
+        } );
+        rtWMsg.setOnAction(new RetweetHandler(info.getTweetID(), info.getHandle()));
+        retweetBtn.getItems().addAll(rt, rtWMsg);
         
         Button likeBtn = new Button();
-        Image likeImage = new Image("images/ic_heart_empty.png", 20, 20, true, false);
+        String url = info.isLiked() ? "images/ic_heart_full.png" : "images/ic_heart_empty.png";
+        Image likeImage = new Image(url, 20, 20, true, false);
         likeBtn.setGraphic(new ImageView(likeImage)); 
+        likeBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            if (info.isLiked()){
+                try {
+                    engine.unLikeTweet(info.getTweetID());
+                } catch (TwitterException ex) {
+                    LOG.error("Can't get tweet id");
+                }
+                likeBtn.setGraphic(new ImageView(new Image("images/ic_heart_empty.png", 20, 20, true, false)));
+            }
+            else {
+                try {
+                    engine.likeTweet(info.getTweetID());
+                } catch (TwitterException ex) {
+                    LOG.error("Can't get tweet id");
+                }
+                likeBtn.setGraphic(new ImageView(new Image("images/ic_heart_full.png", 20, 20, true, false)));
+            }
+        });
         
         HBox buttons = new HBox();
         buttons.setSpacing(100);
         buttons.getChildren().addAll(commentBtn, retweetBtn, likeBtn);
         
+
         HBox nameDate = new HBox();
         nameDate.getChildren().addAll(name, date);
         nameDate.setSpacing(10);
         
-        Text count = new Text(""+info.getTweetID());
+        Text id = new Text(""+info.getTweetID());
         LOG.debug("ID = : "+ info.getTweetID());
-        count.setWrappingWidth(450);
+        id.setWrappingWidth(450);
+
 
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(nameDate, text, buttons, count);
+        vbox.getChildren().addAll(nameDate, text, buttons, id);
         node.getChildren().addAll(imageView, vbox);
         
         return node;

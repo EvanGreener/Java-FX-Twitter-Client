@@ -45,5 +45,8 @@ public class TwitterInfo {
         return status.getId();
     }
     
+    public boolean isLiked(){
+        return status.isFavorited();
+    }
     
 }

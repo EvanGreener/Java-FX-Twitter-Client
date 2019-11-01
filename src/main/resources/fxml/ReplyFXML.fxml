@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evangreenstein.twitter_client.controller.ReplyFXMLController">
+   <children>
+      <Label fx:id="replyingToLbl" text="Replying to: ">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <TextArea fx:id="replyArea" prefHeight="121.0" prefWidth="600.0" promptText="Tweet your reply">
+         <font>
+            <Font size="17.0" />
+         </font></TextArea>
+      <Button fx:id="replyBtn" mnemonicParsing="false" onAction="#replyToTweet" text="Reply">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+   </children>
+</VBox>

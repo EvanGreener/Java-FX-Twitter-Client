@@ -1,12 +1,20 @@
-/**
- * Sample Skeleton for 'MainFXML.fxml' Controller Class
- */
 
 package com.evangreenstein.twitter_client.controller;
 
+import com.evangreenstein.twitter_client.business.MentionsManager;
+import com.evangreenstein.twitter_client.business.SearchManager;
+import com.evangreenstein.twitter_client.business.TimelineManager;
+import com.evangreenstein.twitter_client.business.TwitterEngine;
+import com.evangreenstein.twitter_client.business.TwitterInfo;
+import com.evangreenstein.twitter_client.business.TwitterInfoCell;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +27,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import twitter4j.TwitterException;
+
+/**
+ * The controller class for the main twitter client.
+ * 
+ * @author evangreenstein
+ */
 public class MainFXMLController {
+    
+    private final static Logger LOG = LoggerFactory.getLogger(MainFXMLController.class);
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -43,7 +63,7 @@ public class MainFXMLController {
     private Button profileBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="profileBtn1"
-    private Button profileBtn1; // Value injected by FXMLLoader
+    private Button notificationsBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="helpBtn"
     private Button helpBtn; // Value injected by FXMLLoader
@@ -100,7 +120,7 @@ public class MainFXMLController {
     private TextField searchBar; // Value injected by FXMLLoader
 
     @FXML // fx:id="searchResults"
-    private ListView<?> searchResults; // Value injected by FXMLLoader
+    private ListView<TwitterInfo> searchResults; // Value injected by FXMLLoader
 
     @FXML // fx:id="homeWindow"
     private VBox homeWindow; // Value injected by FXMLLoader
@@ -115,14 +135,23 @@ public class MainFXMLController {
     private Button tweetBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="userTimeline"
-    private ListView<?> userTimeline; // Value injected by FXMLLoader
+    private ListView<TwitterInfo> userTimeline; // Value injected by FXMLLoader
 
     @FXML // fx:id="notificationsWindow"
     private VBox notificationsWindow; // Value injected by FXMLLoader
 
     @FXML // fx:id="notificationsList"
-    private ListView<?> notificationsList; // Value injected by FXMLLoader
+    private ListView<TwitterInfo> notificationsList; // Value injected by FXMLLoader
 
+    @FXML // fx:id="nextTweetsBtn"
+    private Button nextTweetsBtn; // Value injected by FXMLLoader
+
+
+    private final TwitterEngine twitterEngine = new TwitterEngine();
+    private TimelineManager timelineManager;
+    private MentionsManager mentionsManager;
+    private SearchManager searchManager;
+    
     @FXML
     void followUnfollowUser(ActionEvent event) {
 
@@ -133,39 +162,112 @@ public class MainFXMLController {
 
     }
 
+    /**
+     * Retrieves the tweets that match the search term. 
+     * 
+     * @param event
+     * @throws TwitterException
+     * @throws Exception 
+     */
     @FXML
-    void search(ActionEvent event) {
-
+    void search(ActionEvent event) throws TwitterException, Exception {
+        searchManager.fillTimeLine(searchBar.getText());
+        searchBar.clear();
+        
     }
 
     @FXML
     void sendDirectMessage(ActionEvent event) {
-
+        
     }
 
+    /**
+     * Sends a tweet
+     * 
+     * @param event
+     * @throws TwitterException 
+     */
     @FXML
-    void sendTweet(ActionEvent event) {
-
+    void sendTweet(ActionEvent event) throws TwitterException {
+        String tweet = statusMsg.getText();
+        statusMsg.clear();
+        twitterEngine.createTweet(tweet);
     }
 
     @FXML
     void showHelpScreen(ActionEvent event) {
 
     }
+    
+    /**
+     * The event that fills the timeline with 20 more tweets
+     * 
+     * @param event 
+     */
+    @FXML
+    void showNextTweets(ActionEvent event) {
+        try {
+            timelineManager.fillTimeLine();
+        } catch (Exception e) {
+            LOG.error("Unable to add to timeline");
+        }
 
+    }
+
+    /**
+     * This event handler is attached to all the sidebar buttons. When a sidebar button
+     * is pressed, it brings the corresponding window to the foreground. 
+     * 
+     * I realize that attaching all the buttons to one event handler was not the cleanest 
+     * way of approaching this.
+     * 
+     * @param event 
+     */
     @FXML
     void showWindow(ActionEvent event) {
         
-    }
+        EventTarget target = event.getTarget();
+        if (target instanceof Button){
+            Button sideBarBtn = (Button) target;
+            String id = sideBarBtn.getId();
+            LOG.debug(id);
 
+            //Checks the first part before Btn and which one that corresponds to.
+            //E.g. homeBtn matches "^home\w*"
+            if (Pattern.matches("^home\\w*", id)){
+                homeWindow.toFront();
+            }
+            else if (Pattern.matches("^explore\\w*", id)){
+                exploreWindow.toFront();
+            }
+            else if (Pattern.matches("^messages\\w*", id)){
+                messagesWindow.toFront();
+            }
+            else if (Pattern.matches("^profile\\w*", id)) {
+                profileWindow.toFront();
+            }
+            else if (Pattern.matches("^notifications\\w*", id)){
+                notificationsWindow.toFront();
+            }
+        }
+        
+    }
+    
+    
+    /**
+     * Initializes the listviews for the home timeline, the mentions timeline and 
+     * the search result tweets. 
+     * 
+     * @throws Exception 
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize() throws Exception {
         assert sideBarVbox != null : "fx:id=\"sideBarVbox\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert homebtn != null : "fx:id=\"homebtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert exploreBtn != null : "fx:id=\"exploreBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert messagesBtn != null : "fx:id=\"messagesBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert profileBtn != null : "fx:id=\"profileBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
-        assert profileBtn1 != null : "fx:id=\"profileBtn1\" was not injected: check your FXML file 'MainFXML.fxml'.";
+        assert notificationsBtn != null : "fx:id=\"notificationsBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert helpBtn != null : "fx:id=\"helpBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert windowsStackPane != null : "fx:id=\"windowsStackPane\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert messagesWindow != null : "fx:id=\"messagesWindow\" was not injected: check your FXML file 'MainFXML.fxml'.";
@@ -192,6 +294,26 @@ public class MainFXMLController {
         assert userTimeline != null : "fx:id=\"userTimeline\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert notificationsWindow != null : "fx:id=\"notificationsWindow\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert notificationsList != null : "fx:id=\"notificationsList\" was not injected: check your FXML file 'MainFXML.fxml'.";
-
+        assert nextTweetsBtn != null : "fx:id=\"nextTweetsBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
+        
+        
+        ObservableList<TwitterInfo> timeline = FXCollections.observableArrayList();
+        userTimeline.setItems(timeline);
+        userTimeline.setCellFactory(p -> new TwitterInfoCell());
+        timelineManager = new TimelineManager(userTimeline.getItems());
+        timelineManager.fillTimeLine();
+        
+        ObservableList<TwitterInfo> mentions = FXCollections.observableArrayList();
+        notificationsList.setItems(mentions);
+        notificationsList.setCellFactory(p -> new TwitterInfoCell());
+        mentionsManager = new MentionsManager(notificationsList.getItems());
+        mentionsManager.fillTimeLine();
+        
+        ObservableList<TwitterInfo> results = FXCollections.observableArrayList();
+        searchResults.setItems(results);
+        searchResults.setCellFactory(p -> new TwitterInfoCell());
+        searchManager = new SearchManager(searchResults.getItems());
+        
+        
     }
 }

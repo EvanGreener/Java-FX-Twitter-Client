@@ -65,6 +65,6 @@
     </dependency>
   </dependencies>
   <properties>
-    <mainClass>${project.groupId}.${project.artifactId}.MainApp</mainClass>
+    <mainClass>${project.groupId}.${project.artifactId}.presentation.MainApp</mainClass>
   </properties>
 </project>

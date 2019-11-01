@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
         <action>
-            <actionName>CUSTOM-TwitterClient</actionName>
-            <displayName>TwitterClient</displayName>
+            <actionName>debug</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <properties>
+                <jpda.listen>maven</jpda.listen>
+            </properties>
         </action>
+        
     </actions>

@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
 import twitter4j.Status;
 
 /**
- *
- * @author evangreenstein
+ * Responsible for managing the home timeline
  */
 public class TimelineManager {
     private final static Logger LOG = LoggerFactory.getLogger(TimelineManager.class);
@@ -23,6 +22,7 @@ public class TimelineManager {
     private final TwitterEngine twitterEngine;
 
     private int page;
+    
 
     /**
      * Non-default constructor initializes instance variables.
@@ -42,11 +42,14 @@ public class TimelineManager {
      * @throws Exception
      */
     public void fillTimeLine() throws Exception {
+        LOG.debug("Filling the home timeline");
         List<Status> homeline = twitterEngine.getTimeLine(page);
         homeline.forEach((status) -> {
             list.add(list.size(), new TwitterInfo(status));
         });
         page += 1;
     }
+    
+    
 
 }

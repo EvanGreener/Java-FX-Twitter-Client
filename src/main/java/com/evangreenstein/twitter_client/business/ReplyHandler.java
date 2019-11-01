@@ -8,21 +8,21 @@ package com.evangreenstein.twitter_client.business;
 import com.evangreenstein.twitter_client.controller.ReplyFXMLController;
 import java.io.IOException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
- * @author evangreenstein
  */
 public class ReplyHandler implements EventHandler<MouseEvent> {
 
+    private final static org.slf4j.Logger LOG = LoggerFactory.getLogger(ReplyHandler.class);
     private long tweetId;
     private String handle;
     
@@ -31,8 +31,15 @@ public class ReplyHandler implements EventHandler<MouseEvent> {
         this.handle = handle;
     }
     
+    /**
+     * Creates a new stage with a text area and reply button. The tweet id and the 
+     * handle is passed in the controller for later.
+     * 
+     * @param t 
+     */
     @Override
     public void handle(MouseEvent t) {
+        LOG.debug("Creating reply stage");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReplyFXML.fxml"), 
                 ResourceBundle.getBundle("MessagesBundle")); 
         Parent root;
@@ -48,7 +55,7 @@ public class ReplyHandler implements EventHandler<MouseEvent> {
             stage.show();
         
         } catch (IOException ex) {
-            Logger.getLogger(ReplyHandler.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Could not create the reply window");
         }
         
     }

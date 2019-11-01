@@ -16,8 +16,7 @@ import twitter4j.StatusUpdate;
 import twitter4j.TwitterFactory;
 
 /**
- *
- * @author evangreenstein
+ * The class that's responsible for interaction with the twitter4j library. 
  */
 public class TwitterEngine {
     
@@ -43,10 +42,7 @@ public class TwitterEngine {
     }
     
     /**
-     * Get the timeline.This call uses count to set the number of tweets to
-     * retrieve from the timeline and page to represent the page number. Basically FX 
-     * multiplies the page number by the count to figure out what
-     * the next set of tweets to retrieve will be.
+     * Get the timeline.
      *
      * @param page
      * @return
@@ -93,11 +89,35 @@ public class TwitterEngine {
         return statuses;
     }
     
+    /**
+     * Replies to a tweet 
+     * 
+     * @param reply
+     * @param tweetId
+     * @throws TwitterException 
+     */
     public void replyToTweet(String reply, long tweetId) throws TwitterException{
         LOG.debug("replyToTweet");
         Twitter twitter = getTwitterinstance();
         StatusUpdate update = (new StatusUpdate(reply)).inReplyToStatusId(tweetId);
         twitter.updateStatus(update);
         
+    }
+    
+    /**
+     * Retrieves the tweets where you are mentioned.
+     * 
+     * @param page
+     * @return
+     * @throws TwitterException 
+     */
+    public List<Status> getMentions(int page) throws TwitterException{
+        LOG.debug("getMentions");
+        Twitter twitter = getTwitterinstance();
+        Paging paging = new Paging();
+        paging.setCount(20);
+        paging.setPage(page);
+        List<Status> statuses = twitter.getMentionsTimeline(paging);
+        return statuses;
     }
 }

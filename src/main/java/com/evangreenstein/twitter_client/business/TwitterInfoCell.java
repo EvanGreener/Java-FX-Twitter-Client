@@ -43,8 +43,7 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
     }
 
     /**
-     * This method determines what the cell will look like. Here is where you
-     * can add buttons or any additional information
+     * This is what every tweet in a timeline looks like
      *
      * @param info
      * @return The node to be placed into the ListView
@@ -58,7 +57,8 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
         ImageView imageView = new ImageView(image);
         
         Text name = new Text(info.getName());
-        name.setWrappingWidth(450);
+        
+        Text date = new Text(info.getDateCreated());
         
         Text text = new Text(info.getText());
         text.setWrappingWidth(450);
@@ -80,12 +80,16 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
         buttons.setSpacing(100);
         buttons.getChildren().addAll(commentBtn, retweetBtn, likeBtn);
         
+        HBox nameDate = new HBox();
+        nameDate.getChildren().addAll(name, date);
+        nameDate.setSpacing(10);
+        
         Text count = new Text(""+info.getTweetID());
         LOG.debug("ID = : "+ info.getTweetID());
         count.setWrappingWidth(450);
 
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(name, text, buttons, count);
+        vbox.getChildren().addAll(nameDate, text, buttons, count);
         node.getChildren().addAll(imageView, vbox);
         
         return node;

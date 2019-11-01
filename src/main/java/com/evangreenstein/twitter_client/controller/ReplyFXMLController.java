@@ -40,7 +40,6 @@ public class ReplyFXMLController {
     private final TwitterEngine engine = new TwitterEngine();
     private Stage stage;
     private long tweetId;
-    private String handle;
     
     public void setStage(Stage stage){
         this.stage = stage;
@@ -48,11 +47,17 @@ public class ReplyFXMLController {
     
     public void setTweetInfo(long tweetId, String handle){
         this.tweetId = tweetId;
-        this.handle = handle;
         
         replyingToLbl.setText(String.format("Replying to: @%s", handle ));
     }
     
+    /**
+     * Uses the twitter engine to reply to the tweet and then makes the reply
+     * window disappear once the reply has been sent
+     * 
+     * @param event
+     * @throws TwitterException 
+     */
     @FXML
     void replyToTweet(ActionEvent event) throws TwitterException {
         engine.replyToTweet(replyArea.getText().trim() , tweetId);

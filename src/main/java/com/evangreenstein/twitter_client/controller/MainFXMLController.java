@@ -1,6 +1,8 @@
 
 package com.evangreenstein.twitter_client.controller;
 
+import com.evangreenstein.twitter_client.business.MentionsManager;
+import com.evangreenstein.twitter_client.business.SearchManager;
 import com.evangreenstein.twitter_client.business.TimelineManager;
 import com.evangreenstein.twitter_client.business.TwitterEngine;
 import com.evangreenstein.twitter_client.business.TwitterInfo;
@@ -29,6 +31,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.TwitterException;
 
+/**
+ * The controller class for the main twitter client.
+ * 
+ * @author evangreenstein
+ */
 public class MainFXMLController {
     
     private final static Logger LOG = LoggerFactory.getLogger(MainFXMLController.class);
@@ -113,7 +120,7 @@ public class MainFXMLController {
     private TextField searchBar; // Value injected by FXMLLoader
 
     @FXML // fx:id="searchResults"
-    private ListView<?> searchResults; // Value injected by FXMLLoader
+    private ListView<TwitterInfo> searchResults; // Value injected by FXMLLoader
 
     @FXML // fx:id="homeWindow"
     private VBox homeWindow; // Value injected by FXMLLoader
@@ -134,7 +141,7 @@ public class MainFXMLController {
     private VBox notificationsWindow; // Value injected by FXMLLoader
 
     @FXML // fx:id="notificationsList"
-    private ListView<?> notificationsList; // Value injected by FXMLLoader
+    private ListView<TwitterInfo> notificationsList; // Value injected by FXMLLoader
 
     @FXML // fx:id="nextTweetsBtn"
     private Button nextTweetsBtn; // Value injected by FXMLLoader
@@ -142,6 +149,8 @@ public class MainFXMLController {
 
     private final TwitterEngine twitterEngine = new TwitterEngine();
     private TimelineManager timelineManager;
+    private MentionsManager mentionsManager;
+    private SearchManager searchManager;
     
     @FXML
     void followUnfollowUser(ActionEvent event) {
@@ -153,9 +162,18 @@ public class MainFXMLController {
 
     }
 
+    /**
+     * Retrieves the tweets that match the search term. 
+     * 
+     * @param event
+     * @throws TwitterException
+     * @throws Exception 
+     */
     @FXML
-    void search(ActionEvent event) {
-
+    void search(ActionEvent event) throws TwitterException, Exception {
+        searchManager.fillTimeLine(searchBar.getText());
+        searchBar.clear();
+        
     }
 
     @FXML
@@ -163,6 +181,12 @@ public class MainFXMLController {
         
     }
 
+    /**
+     * Sends a tweet
+     * 
+     * @param event
+     * @throws TwitterException 
+     */
     @FXML
     void sendTweet(ActionEvent event) throws TwitterException {
         String tweet = statusMsg.getText();
@@ -175,6 +199,11 @@ public class MainFXMLController {
 
     }
     
+    /**
+     * The event that fills the timeline with 20 more tweets
+     * 
+     * @param event 
+     */
     @FXML
     void showNextTweets(ActionEvent event) {
         try {
@@ -225,7 +254,12 @@ public class MainFXMLController {
     }
     
     
-
+    /**
+     * Initializes the listviews for the home timeline, the mentions timeline and 
+     * the search result tweets. 
+     * 
+     * @throws Exception 
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws Exception {
         assert sideBarVbox != null : "fx:id=\"sideBarVbox\" was not injected: check your FXML file 'MainFXML.fxml'.";
@@ -263,13 +297,23 @@ public class MainFXMLController {
         assert nextTweetsBtn != null : "fx:id=\"nextTweetsBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
         
         
-        ObservableList<TwitterInfo> list = FXCollections.observableArrayList();
-        userTimeline.setItems(list);
+        ObservableList<TwitterInfo> timeline = FXCollections.observableArrayList();
+        userTimeline.setItems(timeline);
         userTimeline.setCellFactory(p -> new TwitterInfoCell());
-        
         timelineManager = new TimelineManager(userTimeline.getItems());
-        
         timelineManager.fillTimeLine();
+        
+        ObservableList<TwitterInfo> mentions = FXCollections.observableArrayList();
+        notificationsList.setItems(mentions);
+        notificationsList.setCellFactory(p -> new TwitterInfoCell());
+        mentionsManager = new MentionsManager(notificationsList.getItems());
+        mentionsManager.fillTimeLine();
+        
+        ObservableList<TwitterInfo> results = FXCollections.observableArrayList();
+        searchResults.setItems(results);
+        searchResults.setCellFactory(p -> new TwitterInfoCell());
+        searchManager = new SearchManager(searchResults.getItems());
+        
         
     }
 }

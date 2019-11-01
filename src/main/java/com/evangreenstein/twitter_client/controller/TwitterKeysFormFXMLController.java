@@ -81,7 +81,7 @@ public class TwitterKeysFormFXMLController {
     /**
      * This event is triggered when the user presses the "Connect to twitter button".
      * It will only generate the properties file once the user has entered all the 4
-     * keys. Then it switches to the next 
+     * keys. Then it switches to the next scene
      * 
      * @param event
      * @throws IOException 
@@ -90,10 +90,12 @@ public class TwitterKeysFormFXMLController {
     void genTwitterProps(ActionEvent event) throws IOException {
         if (cKeyField.getText().isBlank() || cSecretField.getText().isBlank()
                 || aTokenField.getText().isBlank()|| aTSecretField.getText().isBlank() ){
+            LOG.debug("At least one of the fields not entered");
             
             errorMsgLbl.setText("At least one of the fields has not been entered. Please enter all of them.");
         }
         else{
+            LOG.debug("Writing the properties file");
             pm.writeProperties(t4jPropsBean);
             stage.setScene(nextScene);
         }

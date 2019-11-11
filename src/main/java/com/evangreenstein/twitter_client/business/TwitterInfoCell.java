@@ -1,7 +1,10 @@
 package com.evangreenstein.twitter_client.business;
 
+import com.evangreenstein.twitter_client.data.TwitterInfo;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -59,16 +62,17 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
         LOG.debug("getTwitterInfoCell");
         HBox node = new HBox();
         node.setSpacing(10);
-        
+        LOG.debug("URL: " + info.getImageURL());
         Image image = new Image(info.getImageURL(), 48, 48, true, false);
         ImageView imageView = new ImageView(image);
         
         Text name = new Text(info.getName());
         
-        Text date = new Text(info.getDateCreated());
+        SimpleDateFormat simpleformat = new SimpleDateFormat("MMM dd hh:mm");
+        Text date = new Text(simpleformat.format(info.getDateCreated()));
         
         Text text = new Text(info.getText());
-        text.setWrappingWidth(450);
+        text.setWrappingWidth(400);
         
         Button commentBtn = new Button();
         Image commentImage = new Image("images/ic_comment.png", 20, 20, true, false);
@@ -124,12 +128,15 @@ public class TwitterInfoCell extends ListCell<TwitterInfo> {
         
         Text id = new Text(""+info.getTweetID());
         LOG.debug("ID = : "+ info.getTweetID());
-        id.setWrappingWidth(450);
+        id.setWrappingWidth(200);
+        
+        Button saveTweetBtn = new Button("Save Tweet");
+        saveTweetBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new SaveTweetHandler(saveTweetBtn, info));
 
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(nameDate, text, buttons, id);
-        node.getChildren().addAll(imageView, vbox);
+        node.getChildren().addAll(imageView, vbox, saveTweetBtn);
         
         return node;
     }

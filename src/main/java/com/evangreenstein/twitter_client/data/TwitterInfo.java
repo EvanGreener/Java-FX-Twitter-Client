@@ -1,6 +1,7 @@
-package com.evangreenstein.twitter_client.business;
+package com.evangreenstein.twitter_client.data;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.Status;
@@ -24,9 +25,8 @@ public class TwitterInfo {
         return status.getUser().getName();
     }
     
-    public String getDateCreated() {
-        SimpleDateFormat simpleformat = new SimpleDateFormat("MMM dd hh:mm");
-        return simpleformat.format(status.getCreatedAt());
+    public Date getDateCreated() {
+        return status.getCreatedAt();
     }
 
     public String getText(){

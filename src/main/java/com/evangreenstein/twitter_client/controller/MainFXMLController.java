@@ -1,15 +1,20 @@
 
 package com.evangreenstein.twitter_client.controller;
 
+import com.evangreenstein.twitter_client.business.ConversationList;
+import com.evangreenstein.twitter_client.data.DMInfo;
+import com.evangreenstein.twitter_client.business.DMInfoCell;
 import com.evangreenstein.twitter_client.business.MentionsManager;
 import com.evangreenstein.twitter_client.business.SearchManager;
+import com.evangreenstein.twitter_client.business.SpecificConversation;
 import com.evangreenstein.twitter_client.business.TimelineManager;
 import com.evangreenstein.twitter_client.business.TwitterEngine;
-import com.evangreenstein.twitter_client.business.TwitterInfo;
+import com.evangreenstein.twitter_client.data.TwitterInfo;
 import com.evangreenstein.twitter_client.business.TwitterInfoCell;
+import com.evangreenstein.twitter_client.data.UserInfo;
+import com.evangreenstein.twitter_client.business.UserInfoCell;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +28,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -75,7 +81,7 @@ public class MainFXMLController {
     private HBox messagesWindow; // Value injected by FXMLLoader
 
     @FXML // fx:id="convosList"
-    private ListView<?> convosList; // Value injected by FXMLLoader
+    private ListView<UserInfo> convosList; // Value injected by FXMLLoader
 
     @FXML // fx:id="messageField"
     private TextField messageField; // Value injected by FXMLLoader
@@ -84,7 +90,7 @@ public class MainFXMLController {
     private Button sendBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="specificConvoList"
-    private ListView<?> specificConvoList; // Value injected by FXMLLoader
+    private ListView<DMInfo> specificConvoList; // Value injected by FXMLLoader
 
     @FXML // fx:id="twitterNameMessagesLbl"
     private Label twitterNameMessagesLbl; // Value injected by FXMLLoader
@@ -151,6 +157,8 @@ public class MainFXMLController {
     private TimelineManager timelineManager;
     private MentionsManager mentionsManager;
     private SearchManager searchManager;
+    private SpecificConversation specificConversationManager;
+    private long selectedUser;
     
     @FXML
     void followUnfollowUser(ActionEvent event) {
@@ -176,9 +184,17 @@ public class MainFXMLController {
         
     }
 
+    /**
+     * Sends a direct message. Unfortunately the client has to be restarted to see the effect.
+     * 
+     * @param event
+     * @throws TwitterException 
+     */
     @FXML
-    void sendDirectMessage(ActionEvent event) {
-        
+    void sendDirectMessage(ActionEvent event) throws TwitterException {
+        LOG.debug("Send direct message. Restart client to see message in conversation");
+        twitterEngine.sendDirectMessage(selectedUser, messageField.getText());
+        messageField.clear();
     }
 
     /**
@@ -253,6 +269,15 @@ public class MainFXMLController {
         
     }
     
+    @FXML
+    void showConversation(MouseEvent event) throws TwitterException{
+        LOG.debug("showConversation");
+        UserInfo info = convosList.getSelectionModel().getSelectedItem();
+        specificConversationManager.fillConvosList(info.getId());
+        twitterNameMessagesLbl.setText(info.getName());
+        selectedUser = info.getId();
+        
+    }
     
     /**
      * Initializes the listviews for the home timeline, the mentions timeline and 
@@ -313,6 +338,17 @@ public class MainFXMLController {
         searchResults.setItems(results);
         searchResults.setCellFactory(p -> new TwitterInfoCell());
         searchManager = new SearchManager(searchResults.getItems());
+        
+        ObservableList<UserInfo> convos = FXCollections.observableArrayList();
+        convosList.setItems(convos);
+        convosList.setCellFactory(p -> new UserInfoCell());
+        ConversationList convosListManager = new ConversationList(convosList.getItems());
+        convosListManager.fillConvosList();
+        
+        ObservableList<DMInfo> specificConvo = FXCollections.observableArrayList();
+        specificConvoList.setItems(specificConvo);
+        specificConvoList.setCellFactory(p -> new DMInfoCell());
+        specificConversationManager = new SpecificConversation(specificConvoList.getItems());
         
         
     }

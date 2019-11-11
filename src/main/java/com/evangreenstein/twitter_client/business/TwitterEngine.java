@@ -1,6 +1,8 @@
 
 package com.evangreenstein.twitter_client.business;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -9,11 +11,13 @@ import twitter4j.TwitterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.DirectMessage;
+import twitter4j.DirectMessageList;
 import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.StatusUpdate;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 
 /**
  * The class that's responsible for interaction with the twitter4j library. 
@@ -70,6 +74,21 @@ public class TwitterEngine {
         LOG.debug("sendDirectMessage");
         Twitter twitter = getTwitterInstance();
         DirectMessage message = twitter.sendDirectMessage(recipientName, msg);
+        return message.getText();
+    }
+    
+    /**
+     * Sends a direct message
+     * 
+     * @param userid
+     * @param msg
+     * @return
+     * @throws TwitterException 
+     */
+    public String sendDirectMessage(long userid, String msg) throws TwitterException {
+        LOG.debug("sendDirectMessage");
+        Twitter twitter = getTwitterInstance();
+        DirectMessage message = twitter.sendDirectMessage(userid, msg);
         return message.getText();
     }
 
@@ -172,5 +191,90 @@ public class TwitterEngine {
         LOG.debug("like tweet");
         Twitter twitter = getTwitterInstance();
         twitter.destroyFavorite(tweetId);
+    }
+    
+    /**
+     * The list of users the user had a conversation with in the last 30 days. 
+     * 
+     * @return The list of users 
+     */
+    public List<User> getConversationUsers() throws TwitterException{
+        Twitter twitter = getTwitterInstance();
+        
+        long userID = twitter.getId();
+        LOG.debug("user id: " + userID);
+        
+        List<User> convos = new ArrayList<>();
+        List<Long> convosIDs = new ArrayList<>();
+        String cursor = null;
+        int count = 20;
+        DirectMessageList messages;
+        do{
+            messages = cursor == null ? twitter.getDirectMessages(count) : twitter.getDirectMessages(count, cursor);
+            for (DirectMessage message : messages) {
+                long recepientID = message.getRecipientId();
+                long senderID = message.getSenderId();
+                
+                if (recepientID != userID && !convosIDs.contains(recepientID)){
+                    convosIDs.add(recepientID);
+                    convos.add(twitter.showUser(recepientID));
+                }
+                else if (senderID != userID && !convosIDs.contains(senderID)){
+                    convosIDs.add(senderID);
+                    convos.add(twitter.showUser(senderID));
+                }
+            }
+            
+            cursor = messages.getNextCursor();
+        } while (messages.size() > 0 && cursor != null);
+        
+        LOG.debug(convos.toString());
+        
+        return convos;
+    }
+
+    /**
+     * Gets the conversation the user had with the other specified user. Only gets
+     * the conversation up to 30 days ago.
+     * 
+     * @param id
+     * @return The conversation 
+     * @throws TwitterException 
+     */
+    public List<DirectMessage> getConversation(long id) throws TwitterException {
+        Twitter twitter = getTwitterInstance();
+        List<DirectMessage> convo = new ArrayList<>();
+        String cursor = null;
+        int count = 20;
+        DirectMessageList messages;
+        do{
+            messages = cursor == null ? twitter.getDirectMessages(count) : twitter.getDirectMessages(count, cursor);
+            for (DirectMessage message : messages) {
+                long recepientID = message.getRecipientId();
+                long senderID = message.getSenderId();
+                
+                //Adds a message to the conversation only if the user with 'id' was a
+                //sender or recepient of message
+                if (recepientID == id || senderID == id){
+                    convo.add(message);
+                }
+            }
+            
+            cursor = messages.getNextCursor();
+        } while (messages.size() > 0 && cursor != null);
+        
+        //Since the dms are newest first, we need to reverse it so the old ones show up at the top
+        Collections.reverse(convo);
+        
+        return convo;
+    }
+    
+    /**
+     * 
+     * @return The user's id
+     */
+    public long getId() throws TwitterException{
+        Twitter twitter = getTwitterInstance();
+        return twitter.getId();
     }
 }

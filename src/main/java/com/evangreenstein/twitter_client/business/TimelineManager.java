@@ -5,6 +5,7 @@
  */
 package com.evangreenstein.twitter_client.business;
 
+import com.evangreenstein.twitter_client.data.TwitterInfo;
 import java.util.List;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;

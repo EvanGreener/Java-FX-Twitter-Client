@@ -3,20 +3,9 @@ CREATE DATABASE TWITTERTEST;
 
 USE TWITTERTEST;
 
-DROP USER IF EXISTS test@localhost;
+DROP USER IF EXISTS test@'localhost';
 CREATE USER test@'localhost' IDENTIFIED WITH mysql_native_password BY 'dawson' REQUIRE NONE;
 GRANT ALL ON TWITTERTEST.* TO test@'localhost';
 
 FLUSH PRIVILEGES;
-
-DROP TABLE IF EXISTS status; 
-
-CREATE TABLE status (
-    id BIGINT NOT NULL PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    date_created DATETIME NOT NULL,
-    text VARCHAR(280) NOT NULL,
-    profile_image MEDIUMBLOB NOT NULL,
-    is_liked BOOLEAN
-) ENGINE=InnoDB;
 

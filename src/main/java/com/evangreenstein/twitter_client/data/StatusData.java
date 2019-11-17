@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -34,20 +35,27 @@ public class StatusData {
     private ObjectProperty dateCreatedProp;
     private StringProperty textProp;
     private ObjectProperty imageProp;
-    private StringProperty handleProp;
     private BooleanProperty isLikedProp;
    
     public StatusData(long tweetId, String name, Date dateCreated, String text, 
-            byte[] imageData, String handle, boolean isLiked) throws IOException{
+            byte[] imageData,  boolean isLiked) throws IOException{
         this.tweetIdProp = new SimpleLongProperty(tweetId);
         this.nameProp = new SimpleStringProperty(name);
         this.dateCreatedProp = new SimpleObjectProperty(dateCreated);
         this.textProp = new SimpleStringProperty(text);
         this.imageProp = new SimpleObjectProperty(convertBytesToImage(imageData));
-        this.handleProp = new SimpleStringProperty(handle);
         this.isLikedProp = new SimpleBooleanProperty(isLiked);
     }
 
+    public StatusData(long tweetId, String name, Date dateCreated, String text, boolean isLiked) throws IOException{
+        this.tweetIdProp = new SimpleLongProperty(tweetId);
+        this.nameProp = new SimpleStringProperty(name);
+        this.dateCreatedProp = new SimpleObjectProperty(dateCreated);
+        this.textProp = new SimpleStringProperty(text);
+        this.imageProp = new SimpleObjectProperty(null);
+        this.isLikedProp = new SimpleBooleanProperty(isLiked);
+    }
+    
     public Date getDateCreated(){
         return (Date) dateCreatedProp.get();
     }
@@ -60,16 +68,6 @@ public class StatusData {
         return dateCreatedProp;
     }
     
-    public String getHandle(){
-        return handleProp.get();
-    }
-    
-    public void setHandle(String handle){
-        handleProp.set(handle);
-    }
-    public StringProperty handleProp() {
-        return handleProp;
-    }
     
     public WritableImage getImage(){
         return (WritableImage) imageProp.get();
@@ -131,10 +129,30 @@ public class StatusData {
         return tweetIdProp;
     }
 
-    
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof StatusData){
+            StatusData statusData2 = (StatusData)o;
+            return this.getTweetId() == statusData2.getTweetId() &&
+                    this.getName().equals(statusData2.getName()) &&
+                    this.getDateCreated().equals(statusData2.getDateCreated()) &&
+                    this.getText().equals(statusData2.getText()) &&
+                    this.getIsLiked() == statusData2.getIsLiked();
+        }
+        return false;
+    }
 
-    
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.tweetIdProp);
+        hash = 67 * hash + Objects.hashCode(this.nameProp);
+        hash = 67 * hash + Objects.hashCode(this.dateCreatedProp);
+        hash = 67 * hash + Objects.hashCode(this.textProp);
+        hash = 67 * hash + Objects.hashCode(this.imageProp);
+        hash = 67 * hash + Objects.hashCode(this.isLikedProp);
+        return hash;
+    }
     
     /**
      * 

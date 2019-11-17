@@ -212,7 +212,7 @@ public class MainFXMLController {
 
     @FXML
     void showHelpScreen(ActionEvent event) {
-
+        
     }
     
     /**
@@ -320,7 +320,6 @@ public class MainFXMLController {
         assert notificationsWindow != null : "fx:id=\"notificationsWindow\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert notificationsList != null : "fx:id=\"notificationsList\" was not injected: check your FXML file 'MainFXML.fxml'.";
         assert nextTweetsBtn != null : "fx:id=\"nextTweetsBtn\" was not injected: check your FXML file 'MainFXML.fxml'.";
-        
         
         ObservableList<TwitterInfo> timeline = FXCollections.observableArrayList();
         userTimeline.setItems(timeline);

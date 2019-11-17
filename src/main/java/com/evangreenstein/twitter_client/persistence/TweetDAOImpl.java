@@ -93,9 +93,11 @@ public class TweetDAOImpl implements TweetDAO{
         catch (SQLException ex) {
             LOG.error(ex.fillInStackTrace().toString());
             ex.printStackTrace();
+
         } catch (Exception ex) { 
             LOG.error(ex.fillInStackTrace().toString());
             ex.printStackTrace();
+
         }
         
         return result;
@@ -128,22 +130,23 @@ public class TweetDAOImpl implements TweetDAO{
                 password);){
             
             PreparedStatement ps = connection.prepareStatement(getTweetQuery);
-            ps.setLong(0, id);
+            ps.setLong(1, id);
             
             try (ResultSet rs = ps.executeQuery()){
                 
                 if (rs.next()){
                     status =  new StatusData(rs.getLong("id"), rs.getString("name"), rs.getDate("date_created"), 
-                            rs.getString("text"), rs.getBytes("profile_image"),rs.getString("handle"),
-                            rs.getBoolean("is_liked"));
+                            rs.getString("text"), rs.getBytes("profile_image"), rs.getBoolean("is_liked"));
                     return status;
                 }
             } catch (IOException ex) {
-                LOG.error(ex.getLocalizedMessage());
+                LOG.error(ex.fillInStackTrace().toString());
+                ex.printStackTrace();
             }
             
         } catch (SQLException ex) {
-            LOG.error(ex.getLocalizedMessage());
+            LOG.error(ex.fillInStackTrace().toString());
+            ex.printStackTrace();
         }
         return status;
     }
@@ -164,16 +167,17 @@ public class TweetDAOImpl implements TweetDAO{
                 
                 while (rs.next()){
                     savedTweets.add( new StatusData(rs.getLong("id"), rs.getString("name"), rs.getDate("date_created"), 
-                            rs.getString("text"), rs.getBytes("profile_image"),rs.getString("handle"),
-                            rs.getBoolean("is_liked"))) ;
+                            rs.getString("text"), rs.getBytes("profile_image"), rs.getBoolean("is_liked"))) ;
                     
                 }
             } catch (IOException ex) {
-                LOG.error(ex.getLocalizedMessage());
+                LOG.error(ex.fillInStackTrace().toString());
+                ex.printStackTrace();
             }
             
         } catch (SQLException ex) {
-            LOG.error(ex.getLocalizedMessage());
+            LOG.error(ex.fillInStackTrace().toString());
+            ex.printStackTrace();
         }
         return savedTweets;
     }

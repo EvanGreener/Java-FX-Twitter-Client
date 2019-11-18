@@ -4,6 +4,7 @@ package com.evangreenstein.twitter_client.business;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javafx.scene.image.Image;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -272,9 +273,51 @@ public class TwitterEngine {
     /**
      * 
      * @return The user's id
+     * @throws twitter4j.TwitterException
      */
     public long getId() throws TwitterException{
         Twitter twitter = getTwitterInstance();
         return twitter.getId();
     }
+    
+    /**
+     * 
+     * @return the user's profile image
+     * @throws TwitterException 
+     */
+    public Image getProfileImage() throws TwitterException{
+        Twitter twitter = getTwitterInstance();
+        return new Image(twitter.showUser(twitter.getId()).get400x400ProfileImageURL());
+    }
+    
+    /**
+     * 
+     * @return the user's screen name
+     * @throws TwitterException 
+     */
+    public String getTwitterName() throws TwitterException {
+        Twitter twitter = getTwitterInstance();
+        return twitter.showUser(twitter.getId()).getName();
+    }
+    
+    /**
+     * 
+     * @return the user's handle
+     * @throws TwitterException 
+     */
+    public String getTwitterHandle() throws TwitterException {
+        Twitter twitter = getTwitterInstance();
+        return twitter.showUser(twitter.getId()).getScreenName();
+    }
+    
+    /**
+     * 
+     * @return the user's description
+     * @throws TwitterException 
+     */
+    public String getDesc() throws TwitterException {
+        Twitter twitter = getTwitterInstance();
+        return twitter.showUser(twitter.getId()).getDescription();
+    }
+    
 }

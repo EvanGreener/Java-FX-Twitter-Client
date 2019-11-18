@@ -105,59 +105,6 @@
                   </ListView>
                </children>
             </VBox>
-            <VBox fx:id="profileWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
-               <children>
-                  <Label fx:id="profileHeader" styleClass="header" text="Evan Greenstein - Profile" />
-                  <Separator prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <BorderPane prefHeight="128.0" prefWidth="595.0">
-                     <left>
-                        <ImageView fx:id="userProfileImage" fitHeight="105.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                           <image>
-                              <Image url="@../images/profile_ic.png" />
-                           </image>
-                        </ImageView>
-                     </left>
-                     <right>
-                        <Button id="follow-btn" fx:id="followUnfollowBtn" mnemonicParsing="false" onAction="#followUnfollowUser" prefHeight="35.0" prefWidth="97.0" text="%Follow" BorderPane.alignment="CENTER" />
-                     </right>
-                     <padding>
-                        <Insets right="40.0" />
-                     </padding>
-                     <bottom>
-                        <VBox prefHeight="96.0" prefWidth="555.0" spacing="2.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Label fx:id="twitterNameProfileLbl" layoutX="10.0" layoutY="27.0" prefHeight="17.0" prefWidth="555.0" text="Evan Greenstein">
-                                 <font>
-                                    <Font name="Arial Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="twitterHandleLbl" prefHeight="17.0" prefWidth="555.0" style="-fx-text-fill: gray;" text="\@evan_greenstein">
-                                 <font>
-                                    <Font name="Arial" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="profileDescLbl" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="555.0" text="Really cool person.">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </bottom>
-                  </BorderPane>
-                  <Separator layoutX="10.0" layoutY="43.0" prefWidth="200.0" />
-                  <Label layoutX="10.0" layoutY="10.0" styleClass="header" text="%Timeline">
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </Label>
-                  <ListView fx:id="userProfileTimeline" prefHeight="190.0" prefWidth="200.0" />
-               </children>
-            </VBox>
             <VBox fx:id="exploreWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
                   <Label styleClass="header" text="%Explore" />
@@ -212,6 +159,49 @@
                   </BorderPane>
                </children>
             </HBox>
+            <VBox fx:id="profileWindow" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
+               <children>
+                  <Label fx:id="profileHeader" styleClass="header" text="Evan Greenstein - Profile" />
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <BorderPane prefHeight="128.0" prefWidth="595.0">
+                     <left>
+                        <ImageView fx:id="userProfileImage" fitHeight="105.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../images/profile_ic.png" />
+                           </image>
+                        </ImageView>
+                     </left>
+                     <padding>
+                        <Insets right="40.0" />
+                     </padding>
+                     <bottom>
+                        <VBox prefHeight="96.0" prefWidth="555.0" spacing="7.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="twitterNameProfileLbl" layoutX="10.0" layoutY="27.0" prefHeight="17.0" prefWidth="555.0" text="Evan Greenstein">
+                                 <font>
+                                    <Font name="Arial Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="twitterHandleLbl" prefHeight="17.0" prefWidth="555.0" style="-fx-text-fill: gray;" text="\@evan_greenstein">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="profileDescLbl" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="555.0" text="Really cool person.">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </VBox>
             <VBox fx:id="homeWindow" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
                   <Label styleClass="header" text="%Home" />

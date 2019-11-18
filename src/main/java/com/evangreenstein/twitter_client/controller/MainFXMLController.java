@@ -13,6 +13,7 @@ import com.evangreenstein.twitter_client.data.TwitterInfo;
 import com.evangreenstein.twitter_client.business.TwitterInfoCell;
 import com.evangreenstein.twitter_client.data.UserInfo;
 import com.evangreenstein.twitter_client.business.UserInfoCell;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -21,6 +22,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -32,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -212,7 +217,21 @@ public class MainFXMLController {
 
     @FXML
     void showHelpScreen(ActionEvent event) {
+        LOG.debug("Creating reply stage");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HelpFXML.fxml"), 
+                ResourceBundle.getBundle("MessagesBundle")); 
+        Parent root;
+        try {
+            root = loader.load();
+            Stage stage = new Stage();
+            Scene helpScene = new Scene(root);
+            stage.setScene(helpScene);
+            stage.setTitle("Help");
+            stage.show();
         
+        } catch (IOException ex) {
+            LOG.error("Could not create the reply window");
+        }
     }
     
     /**
@@ -350,5 +369,12 @@ public class MainFXMLController {
         specificConversationManager = new SpecificConversation(specificConvoList.getItems());
         
         
+        userImageHome.setImage(twitterEngine.getProfileImage());
+        
+        profileHeader.setText(twitterEngine.getTwitterName() + " - Profile");
+        userProfileImage.setImage(twitterEngine.getProfileImage());
+        twitterNameProfileLbl.setText(twitterEngine.getTwitterName());
+        twitterHandleLbl.setText(twitterEngine.getTwitterHandle());
+        profileDescLbl.setText(twitterEngine.getDesc());
     }
 }

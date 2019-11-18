@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Help">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Accordion prefHeight="566.0" prefWidth="600.0">
+        <panes>
+          <TitledPane animated="false" text="Launching the app">
+               <content>
+                  <Label text="When the application is launched, you will be presented with the sidebar on the left side and the home pane. The sidebar contains buttons that direct you to a specific pane. In this twitter client there are 6 main panes each with different features:" textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Home pane">
+               <content>
+                  <Label text="The home pane has two main features. The first feature is that you can update your status (post a tweet) and you can view your timeline. To see a tweet you just posted, you unfortunately have to restart the client since it does not update in real time. At the very bottom there’s a button that allows you to show the next 20 tweets in your timeline. For each tweet in the timeline there some buttons which perform specific functions. The left most button with the speech bubble is the button that allows you to reply to a tweet. The button right beside it with the two green arrows is the retweet button which allows you to retweet with/without a comment. The button with the heart allows you to like a tweet and if you click it again you can take back your like. You may also save a tweet to a database so that you can view them later" textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Explore pane">
+               <content>
+                  <Label text="The explore pane allows you to enter a search term in the text field at the top and then the top 20 results are shown in a timeline of tweets with the exact same features as the ones in the home pane." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+          </TitledPane>
+            <TitledPane animated="false" text="Messages pane">
+               <content>
+                  <Label text="The messages pane allows you to view conversations up to the last 30 days (due to limits of the twitter API) by simply clicking on the user on the left side. You can also send direct messages (DMs) to those people by typing your message in the text field in the bottom right corner and hitting enter." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+            </TitledPane>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Profile pane">
+               <content>
+                  <Label text="The profile pane shows you your profile picture, name, twitter handle and description." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+            </TitledPane>
+            <TitledPane prefHeight="200.0" prefWidth="600.0" text="Notifications pane">
+               <content>
+                  <Label text="The notifications pane allows you view tweets where you are mentioned, again with the same reply, retweet and like features. " textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+   </children>
+</VBox>

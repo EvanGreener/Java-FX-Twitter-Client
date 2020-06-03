@@ -1,0 +1,2 @@
+# Java-FX-Twitter-Client
+A Twitter desktop client made with Java FX framework & the twitter4j library and uses Maven to build, run and manage dependencies. The basic functions of Twitter like direct messaging (only shows very recent messages though), posting tweets, exploring twitter and being able to see tweets where you're mentioned (@yourname). Some features are still incomplete like viewing and posting comments, retweeting, liking tweets and saving tweets to a local database.
